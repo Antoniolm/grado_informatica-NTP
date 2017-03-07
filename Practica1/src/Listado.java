@@ -43,12 +43,8 @@ public class Listado {
 
         list.entrySet().stream().forEach(emp -> {
             if(departmentList.contains(emp.getKey()))
-                emp.getValue().asignDepartment(Departamento.DEPSA);
+                emp.getValue().asignDepartment(Departamento.valueOf(department));
         });
-        //1-Crear nuevo flujo de list
-        //2-filtramos y buscamos su dni
-        //3-mapeamos (x -> x.asignDepartment();
-
     }
 
     /*
@@ -56,6 +52,18 @@ public class Listado {
      */
     public void loadDivision(String fileName)throws IOException{
         Stream<String> lines= Files.lines(Paths.get(fileName));
+
+        //Obtener un hashmap de division
+        List<String> divisionList = lines.collect(Collectors.toList());
+        //I take the department and clean the name and the white space
+        String division=divisionList.get(0);
+        divisionList.remove(0);
+        divisionList.remove(1);
+
+        list.entrySet().stream().forEach(emp -> {
+            if(divisionList.contains(emp.getKey()))
+                emp.getValue().asignDivision(Division.valueOf(division));
+        });
     }
 
     public void print(){
@@ -76,6 +84,13 @@ public class Listado {
     public static void main(String[] args) throws IOException {
         Listado prueba=new Listado("./data/datos.txt");
         prueba.loadDepartment("./data/asignacionDEPSA.txt");
+        prueba.loadDepartment("./data/asignacionDEPSB.txt");
+        prueba.loadDepartment("./data/asignacionDEPSM.txt");
+
+        prueba.loadDivision("./data/asignacionDIVID.txt");
+        prueba.loadDivision("./data/asignacionDIVHW.txt");
+        prueba.loadDivision("./data/asignacionDIVSER.txt");
+        prueba.loadDivision("./data/asignacionDIVSW.txt");
         prueba.print();
     }
 }
