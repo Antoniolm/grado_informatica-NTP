@@ -72,6 +72,31 @@ public class Listado {
                 , Collectors.counting()));
     }
 
+    /*public Map<Division, Map<Departamento, Long>> obtainCountDepartmentDivision(){
+        list.entrySet().stream().collect(Collectors.groupingBy(
+                (list, prueba) -> {
+                    list.getValue().obtainDivision(), obtainCountDepartment()
+                }
+                , Collectors.counting()));
+    }*/
+
+    /**
+     * Metodo para buscar los empleados sin division asignada: es decir,
+     * en el dato miembro division tendran el valor DIVNA
+     * */
+     public List<Empleado> findEmployWithoutDivision(){
+         return list.entrySet().stream().
+                 filter(employ -> employ.getValue().obtainDivision() == Division.DIVNA).
+                 map(employ -> employ.getValue()).collect(Collectors.toList());
+     }
+
+     
+    public List<Empleado> findEmployWithoutDepartment(){
+        return list.entrySet().stream().
+                filter(employ -> employ.getValue().obtainDepartment() == Departamento.DEPNA).
+                map(employ -> employ.getValue()).collect(Collectors.toList());
+    }
+
     public void print(){
         list.forEach((dni, emp) -> {
                     System.out.println(emp.toString());
