@@ -16,10 +16,10 @@ public class Empleado {
    private String correo;
 
    // Dato miembro para almacenar el departamento
-   private String department;
+   private Departamento department;
 
    // Dato miembro para almacenar el departamento
-   private String division;
+   private Division division;
 
    // Constructor
    public Empleado(String aDni,String nombre, String primerApellido,
@@ -28,10 +28,12 @@ public class Empleado {
       this.nombre = nombre;
       this.apellido = primerApellido;
       this.correo = aMail;
+      this.department=Departamento.DEPNA;
+      this.division=Division.DIVNA;
    }
 
    // Metodo para asignar el nombre
-   public void asignarDni(String aDni) {
+   public void asignDni(String aDni) {
       this.nombre = aDni;
    }
 
@@ -41,27 +43,25 @@ public class Empleado {
    }
 
    // Metodo para asignar el nombre
-   public void asignarNombre(String nombre) {
+   public void asignName(String nombre) {
       this.nombre = nombre;
    }
 
    // Metodo para acceder al nombre
-   public String obtainNombre() {
-      return nombre;
-   }
+   public String obtainName() {return nombre; }
 
    // Metodo para asignar el apellido
-   public void asignarPrimerApellido(String primerApellido) {
+   public void asignLastName(String primerApellido) {
       this.apellido = primerApellido;
    }
 
    // Metodo para obtener el primer apellido
-   public String obtainPrimerApellido() {
+   public String obtainLastName() {
       return apellido;
    }
 
    // Metodo para asignar el valor de sueldo
-   public void asignarMail(String aMail) {
+   public void asignMail(String aMail) {
       this.correo = aMail;
    }
 
@@ -71,36 +71,35 @@ public class Empleado {
    }
 
    // Metodo par asignar el departamento
-   public void asignarDepartament(String departamento) {
+   public void asignDepartament(Departamento departamento) {
       this.department = departamento;
    }
 
    // Metodo para obteber el valor del dato miembro departamento
-   public String obtainDivision() {
-      return this.division;
+   public Departamento obtainDepartament() {
+      return department;
    }
 
    // Metodo par asignar el departamento
-   public void asignarDivision(String aDivision) {
+   public void asignDivision(Division aDivision) {
       this.division = aDivision;
    }
 
    // Metodo para obteber el valor del dato miembro departamento
-   public String obtainDepartament() {
-      return department;
+   public Division obtainDivision() {
+      return this.division;
    }
 
    // Recupera nombre y primer apellido
    public String obtainNombreApellido() {
-      return String.format("%s %s", obtainNombre(), obtainPrimerApellido());
+      return String.format("%s %s", obtainName(), obtainLastName());
    }
 
 
    // Metodo toString
    @Override
    public String toString() {
-      return String.format("%-8s %-8s %8.2f   %s",
-              obtainNombre(), obtainPrimerApellido(), obtainMail(),
-              obtainDivision());
+      return String.format("%s %s %s %s",
+              obtainDni(), obtainName(), obtainLastName(), obtainMail() );
    }
 }
