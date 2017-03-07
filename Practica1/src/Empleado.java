@@ -4,7 +4,7 @@
  */
 public class Empleado {
    // Dato miembro para almacenar el nombre
-   private int dni;
+   private String dni;
 
    // Dato miembro para almacenar el nombre
    private String nombre;
@@ -22,7 +22,7 @@ public class Empleado {
    private String division;
 
    // Constructor
-   public Empleado(int aDni,String nombre, String primerApellido,
+   public Empleado(String aDni,String nombre, String primerApellido,
            String aMail, String dapartamento) {
       this.dni=aDni;
       this.nombre = nombre;
@@ -31,12 +31,22 @@ public class Empleado {
    }
 
    // Metodo para asignar el nombre
+   public void asignarDni(String aDni) {
+      this.nombre = aDni;
+   }
+
+   // Metodo para acceder al nombre
+   public String obtainDni() {
+      return this.dni;
+   }
+
+   // Metodo para asignar el nombre
    public void asignarNombre(String nombre) {
       this.nombre = nombre;
    }
 
    // Metodo para acceder al nombre
-   public String obtenerNombre() {
+   public String obtainNombre() {
       return nombre;
    }
 
@@ -46,7 +56,7 @@ public class Empleado {
    }
 
    // Metodo para obtener el primer apellido
-   public String obtenerPrimerApellido() {
+   public String obtainPrimerApellido() {
       return apellido;
    }
 
@@ -56,7 +66,7 @@ public class Empleado {
    }
 
    // Metodo para obtener el sueldo
-   public String obtenerMail() {
+   public String obtainMail() {
       return correo;
    }
 
@@ -66,7 +76,7 @@ public class Empleado {
    }
 
    // Metodo para obteber el valor del dato miembro departamento
-   public String obtenerDivision() {
+   public String obtainDivision() {
       return this.division;
    }
 
@@ -76,13 +86,13 @@ public class Empleado {
    }
 
    // Metodo para obteber el valor del dato miembro departamento
-   public String obtenerDepartament() {
+   public String obtainDepartament() {
       return department;
    }
 
    // Recupera nombre y primer apellido
-   public String obtenerNombreApellido() {
-      return String.format("%s %s", obtenerNombre(), obtenerPrimerApellido());
+   public String obtainNombreApellido() {
+      return String.format("%s %s", obtainNombre(), obtainPrimerApellido());
    }
 
 
@@ -90,7 +100,7 @@ public class Empleado {
    @Override
    public String toString() {
       return String.format("%-8s %-8s %8.2f   %s",
-              obtenerNombre(), obtenerPrimerApellido(), obtenerMail(),
-              obtenerDepartament());
+              obtainNombre(), obtainPrimerApellido(), obtainMail(),
+              obtainDivision());
    }
 }
