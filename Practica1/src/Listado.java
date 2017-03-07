@@ -26,7 +26,12 @@ public class Listado {
             return createEmpleado(line);
         }).
         collect(Collectors.
-                toMap(employ -> employ.obtainDni(), Function.identity()));  
+                toMap(employ -> employ.obtainDni(), Function.identity()));
+
+        list.forEach((dni, emp) -> {
+            System.out.println(dni+" "+emp.obtainNombre());
+                }
+        );
     }
 
     private Empleado createEmpleado(String lines){
@@ -35,5 +40,10 @@ public class Listado {
 
         return new Empleado(flowEmploy.get(0),flowEmploy.get(1),flowEmploy.get(2),flowEmploy.get(3));
         //poner en el empleado como asignado a dpetNA y divNA
+    }
+
+    public static void main(String[] args) throws IOException {
+        Listado prueba=new Listado("./data/datos.txt");
+
     }
 }
