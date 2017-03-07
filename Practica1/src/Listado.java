@@ -84,16 +84,21 @@ public class Listado {
      * Metodo para buscar los empleados sin division asignada: es decir,
      * en el dato miembro division tendran el valor DIVNA
      * */
-     public List<Empleado> findEmployWithoutDivision(){
+    public List<Empleado> findEmployWithoutDivision(){
          return list.entrySet().stream().
                  filter(employ -> employ.getValue().obtainDivision() == Division.DIVNA).
                  map(employ -> employ.getValue()).collect(Collectors.toList());
-     }
+    }
 
-     
-    public List<Empleado> findEmployWithoutDepartment(){
+    public List<Empleado> buscarEmpleadosConDivisionSinDepartamento(){
+
+    }
+
+
+    public List<Empleado> findEmployWithoutDepartment(Division division){
         return list.entrySet().stream().
-                filter(employ -> employ.getValue().obtainDepartment() == Departamento.DEPNA).
+                filter(employ ->  employ.getValue().obtainDivision()== division&&
+                        employ.getValue().obtainDepartment() == Departamento.DEPNA).
                 map(employ -> employ.getValue()).collect(Collectors.toList());
     }
 
