@@ -31,11 +31,21 @@
       <file leaf-file-name="Listado.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Listado.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="21" column="12" lean-forward="false" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
+            <state relative-caret-position="484">
+              <caret line="22" column="58" lean-forward="false" selection-start-line="22" selection-start-column="54" selection-end-line="22" selection-end-column="58" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Empleado.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Empleado.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="356">
+              <caret line="74" column="31" lean-forward="false" selection-start-line="74" selection-start-column="31" selection-end-line="74" selection-end-column="31" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -67,6 +77,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/src/Empleado.java" />
         <option value="$PROJECT_DIR$/src/Listado.java" />
       </list>
     </option>
@@ -141,9 +152,9 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\LENOVO\Documents\GitHub\grado_informatica-NTP\Practica1\src" />
       <recent name="C:\Users\LENOVO\Documents\GitHub\grado_informatica-NTP\Practica1\test" />
       <recent name="C:\Users\LENOVO\Documents\GitHub\grado_informatica-NTP\Practica1\data" />
-      <recent name="C:\Users\LENOVO\Documents\GitHub\grado_informatica-NTP\Practica1\src" />
       <recent name="C:\Users\LENOVO\Documents\GitHub\grado_informatica-NTP\Practica1" />
     </key>
   </component>
@@ -481,10 +492,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Empleado.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="356">
+          <caret line="74" column="31" lean-forward="false" selection-start-line="74" selection-start-column="31" selection-end-line="74" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Listado.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="21" column="12" lean-forward="false" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
+        <state relative-caret-position="484">
+          <caret line="22" column="58" lean-forward="false" selection-start-line="22" selection-start-column="54" selection-end-line="22" selection-end-column="58" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
