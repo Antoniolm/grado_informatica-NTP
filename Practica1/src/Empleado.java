@@ -71,12 +71,12 @@ public class Empleado {
    }
 
    // Metodo par asignar el departamento
-   public void asignDepartament(Departamento departamento) {
+   public void asignDepartment(Departamento departamento) {
       this.department = departamento;
    }
 
    // Metodo para obteber el valor del dato miembro departamento
-   public Departamento obtainDepartament() {
+   public Departamento obtainDepartment() {
       return department;
    }
 
@@ -99,7 +99,7 @@ public class Empleado {
    // Metodo toString
    @Override
    public String toString() {
-      return String.format("%s %s %s %s",
-              obtainDni(), obtainName(), obtainLastName(), obtainMail() );
+      return String.format("%s %s %s %s %s",
+              obtainDni(), obtainName(), obtainLastName(), obtainMail(), obtainDepartment() );
    }
 }

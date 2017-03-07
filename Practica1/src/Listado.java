@@ -31,8 +31,24 @@ public class Listado {
     /*
         DO
      */
-    public void loadDeparment(String fileName)throws IOException{
+    public void loadDepartment(String fileName)throws IOException{
         Stream<String> lines= Files.lines(Paths.get(fileName));
+
+        //Obtener un hashmap de departamento
+        List<String> departmentList = lines.collect(Collectors.toList());
+        //I take the department and clean the name and the white space
+        String department=departmentList.get(0);
+        departmentList.remove(0);
+        departmentList.remove(1);
+
+        list.entrySet().stream().forEach(emp -> {
+            if(departmentList.contains(emp.getKey()))
+                emp.getValue().asignDepartment(Departamento.DEPSA);
+        });
+        //1-Crear nuevo flujo de list
+        //2-filtramos y buscamos su dni
+        //3-mapeamos (x -> x.asignDepartment();
+
     }
 
     /*
@@ -59,6 +75,7 @@ public class Listado {
 
     public static void main(String[] args) throws IOException {
         Listado prueba=new Listado("./data/datos.txt");
+        prueba.loadDepartment("./data/asignacionDEPSA.txt");
         prueba.print();
     }
 }
