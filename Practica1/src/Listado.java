@@ -90,8 +90,11 @@ public class Listado {
                  map(employ -> employ.getValue()).collect(Collectors.toList());
     }
 
-    public List<Empleado> buscarEmpleadosConDivisionSinDepartamento(){
-
+    public List<Empleado> findEmployWthDivDep(){
+        return list.entrySet().stream().
+                filter(employ -> employ.getValue().obtainDepartment() == Departamento.DEPNA &&
+                        employ.getValue().obtainDivision() == Division.DIVNA).
+                map(employ -> employ.getValue()).collect(Collectors.toList());
     }
 
 
