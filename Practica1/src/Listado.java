@@ -66,6 +66,12 @@ public class Listado {
         });
     }
 
+    public Map<Departamento, Long> obtainCountDepartment(){
+         return list.entrySet().stream().collect(Collectors.groupingBy(
+                list -> list.getValue().obtainDepartment()
+                , Collectors.counting()));
+    }
+
     public void print(){
         list.forEach((dni, emp) -> {
                     System.out.println(emp.toString());
