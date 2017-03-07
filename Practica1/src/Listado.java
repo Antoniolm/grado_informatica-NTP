@@ -5,6 +5,7 @@ import java.text.CollationElementIterator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -21,9 +22,11 @@ public class Listado {
     public Listado(String fileName)throws IOException{
         //list =  new HashMap<String,Empleado>();
         Stream<String> lines= Files.lines(Paths.get(fileName));
-        list= lines.map(line -> return createEmpleado(line)).
+        list= lines.map(line -> {
+            return createEmpleado(line);
+        }).
         collect(Collectors.
-                toMap(employ -> employ.obtainDni(),Function.identity()));
+                toMap(employ -> employ.obtainDni(), Function.identity()));  
     }
 
     private Empleado createEmpleado(String lines){

@@ -23,7 +23,7 @@ public class Empleado {
 
    // Constructor
    public Empleado(String aDni,String nombre, String primerApellido,
-           String aMail, String dapartamento) {
+           String aMail) {
       this.dni=aDni;
       this.nombre = nombre;
       this.apellido = primerApellido;
