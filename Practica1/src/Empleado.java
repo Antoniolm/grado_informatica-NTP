@@ -99,7 +99,7 @@ public class Empleado {
    // Metodo toString
    @Override
    public String toString() {
-      return String.format("%s %s %s %s %s",
-              obtainDni(), obtainName(), obtainLastName(), obtainMail(), obtainDepartment() );
+      return String.format("%s %s %s %s %s %s",
+              obtainDni(), obtainName(), obtainLastName(), obtainMail(), obtainDepartment(), obtainDivision() );
    }
 }

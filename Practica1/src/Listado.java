@@ -1,9 +1,11 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.CollationElementIterator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -105,11 +107,11 @@ public class Listado {
                 map(employ -> employ.getValue()).collect(Collectors.toList());
     }
 
-    public void print(){
-        list.forEach((dni, emp) -> {
-                    System.out.println(emp.toString());
-                }
-        );
+    public String toString(){
+        String finalResult = list.entrySet().stream().map(emp -> emp.getValue().toString()).
+                reduce((result, emp) ->
+                        result.toString() + emp.toString()+"\n").toString();
+        return finalResult;
     }
 
     private Empleado createEmpleado(String lines) {
@@ -130,6 +132,6 @@ public class Listado {
         prueba.loadDivision("./data/asignacionDIVHW.txt");
         prueba.loadDivision("./data/asignacionDIVSER.txt");
         prueba.loadDivision("./data/asignacionDIVSW.txt");
-        prueba.print();
+        System.out.println(prueba.toString());
     }
 }
