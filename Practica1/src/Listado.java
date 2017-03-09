@@ -70,8 +70,8 @@ public class Listado {
 
     public Map<Departamento, Long> obtainCountDepartment(){
          return list.entrySet().stream().collect(Collectors.groupingBy(
-                list -> list.getValue().obtainDepartment()
-                , Collectors.counting()));
+                list -> list.getValue().obtainDepartment(),
+                 Collectors.counting()));
     }
 
     /*public Map<Division, Map<Departamento, Long>> obtainCountDepartmentDivision(){
@@ -107,10 +107,43 @@ public class Listado {
                 map(employ -> employ.getValue()).collect(Collectors.toList());
     }
 
+    public boolean hasDniRepeated(){
+        boolean result=false;
+        List<String> dniList = list.entrySet().stream().map(employ -> employ.getValue().obtainDni()).
+                distinct().collect(Collectors.toList());
+        List<String> repeatDniList = list.entrySet().stream().map(employ -> employ.getValue().obtainDni()).
+                collect(Collectors.toList());
+
+        if(dniList.size()!=repeatDniList.size())
+            result=true;
+
+        /*
+            Second way, Groupby dni and see if some dni has a value >1
+         */
+        return result;
+    }
+
+    public boolean hasMailRepeated(){
+        boolean result=false;
+        List<String> dniList = list.entrySet().stream().map(employ -> employ.getValue().obtainMail()).
+                distinct().collect(Collectors.toList());
+        List<String> repeatDniList = list.entrySet().stream().map(employ -> employ.getValue().obtainMail()).
+                collect(Collectors.toList());
+
+        if(dniList.size()!=repeatDniList.size())
+            result=true;
+
+        /*
+            Second way, Groupby dni and see if some dni has a value >1
+         */
+        return result;
+    }
+
+
     public String toString(){
         String finalResult = list.entrySet().stream().map(emp -> emp.getValue().toString()).
                 reduce((result, emp) ->
-                        result.toString() + emp.toString()+"\n").toString();
+                            result.toString() + emp.toString()+"\n").toString();
         return finalResult;
     }
 
@@ -133,5 +166,8 @@ public class Listado {
         prueba.loadDivision("./data/asignacionDIVSER.txt");
         prueba.loadDivision("./data/asignacionDIVSW.txt");
         System.out.println(prueba.toString());
+
+        if(prueba.hasMailRepeated())
+            System.out.println("yes has repeated mail");
     }
 }
