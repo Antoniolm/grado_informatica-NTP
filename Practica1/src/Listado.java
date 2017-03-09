@@ -67,9 +67,10 @@ public class Listado {
                 emp.getValue().asignDivision(Division.valueOf(division));
         });
     }
-
-    public Map<Departamento, Long> obtainCountDepartment(){
-         return list.entrySet().stream().collect(Collectors.groupingBy(
+    
+    public Map<Departamento, Long> obtainCountDepartment(Division aDivision){
+         return list.entrySet().stream().filter(employ -> employ.getValue().obtainDivision()==aDivision).
+                 collect(Collectors.groupingBy(
                 list -> list.getValue().obtainDepartment(),
                  Collectors.counting()));
     }
