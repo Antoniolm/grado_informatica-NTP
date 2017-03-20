@@ -28,7 +28,6 @@ public class Listado {
     }
 
     /*
-        DO
      */
     public void loadDepartment(String fileName)throws IOException{
         Stream<String> lines= Files.lines(Paths.get(fileName));
@@ -43,7 +42,6 @@ public class Listado {
     }
 
     /*
-        DO
      */
     public void loadDivision(String fileName)throws IOException{
         Stream<String> lines= Files.lines(Paths.get(fileName));
@@ -58,9 +56,17 @@ public class Listado {
 
     }
 
+    public int obtainNumberEmploy(){
+        long result = list.entrySet().stream().map(employ -> employ.getValue()).count();
+        return (int)result;
+    }
+
     public Map<Departamento, Long> obtainCountDepartment(Division aDivision){
          return list.entrySet().stream().filter(employ -> employ.getValue().obtainDivision()==aDivision).
-                 collect(Collectors.groupingBy(employ -> employ.getValue().obtainDepartment(),
+                 map(employ -> employ.getValue().obtainDepartment()).
+                 sorted(Comparator.naturalOrder()).
+                 collect(Collectors.groupingBy(Function.identity(),
+                 TreeMap::new,
                  Collectors.counting()));
     }
 
@@ -85,7 +91,7 @@ public class Listado {
     public List<Empleado> findEmployWthDivDep(){
         return list.entrySet().stream().
                 filter(employ -> employ.getValue().obtainDepartment() == Departamento.DEPNA &&
-                        employ.getValue().obtainDivision() == Division.DIVNA).
+                        employ.getValue().obtainDivision() != Division.DIVNA).
                 map(employ -> employ.getValue()).collect(Collectors.toList());
     }
 
@@ -130,7 +136,6 @@ public class Listado {
                 employ -> employ.obtainDni()
                 ));
 
-        result.entrySet().stream().forEach(employ -> System.out.println(employ.getValue().toString()));
         return result;
     }
 
@@ -167,7 +172,6 @@ public class Listado {
                 employ -> employ.obtainMail()
         ));
 
-        result.entrySet().stream().forEach(employ -> System.out.println(employ.getValue().toString()));
         return result;
     }
 
@@ -183,6 +187,5 @@ public class Listado {
         List<String> flowEmploy = pattern.splitAsStream(lines).collect(Collectors.toList());
 
         return new Empleado(flowEmploy.get(0), flowEmploy.get(1), flowEmploy.get(2), flowEmploy.get(3));
-        //poner en el empleado como asignado a dpetNA y divNA
     }
 }

@@ -1,13 +1,11 @@
 
-import listado.Departamento;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import listado.Listado;
-import listado.Division;
 
 import java.io.IOException;
+import java.text.CollationElementIterator;
 import java.util.Map;
 
 /**
@@ -35,15 +33,15 @@ public class ListadoTest {
         // de asignaciones de empleados a cada grupo de las diferentes
         // asignaturas consideradas
         try {
-            listado.cargarArchivoAsignacionDivision("./data/asignacionDIVNA.txt");
-            listado.cargarArchivoAsignacionDivision("./data/asignacionDIVID.txt");
-            listado.cargarArchivoAsignacionDivision("./data/asignacionDIVSW.txt");
-            listado.cargarArchivoAsignacionDivision("./data/asignacionDIVHW.txt");
-            listado.cargarArchivoAsignacionDivision("./data/asignacionDIVSER.txt");
-            listado.cargarArchivoAsignacionDepartamento("./data/asignacionDEPNA.txt");
-            listado.cargarArchivoAsignacionDepartamento("./data/asignacionDEPSB.txt");
-            listado.cargarArchivoAsignacionDepartamento("./data/asignacionDEPSM.txt");
-            listado.cargarArchivoAsignacionDepartamento("./data/asignacionDEPSA.txt");
+            listado.loadDivision("./data/asignacionDIVNA.txt");
+            listado.loadDivision("./data/asignacionDIVID.txt");
+            listado.loadDivision("./data/asignacionDIVSW.txt");
+            listado.loadDivision("./data/asignacionDIVHW.txt");
+            listado.loadDivision("./data/asignacionDIVSER.txt");
+            listado.loadDepartment("./data/asignacionDEPNA.txt");
+            listado.loadDepartment("./data/asignacionDEPSB.txt");
+            listado.loadDepartment("./data/asignacionDEPSM.txt");
+            listado.loadDepartment("./data/asignacionDEPSA.txt");
         } catch (IOException e) {
             System.out.println("Error en lectura de archivos de asignacion");
         }
@@ -58,7 +56,7 @@ public class ListadoTest {
      */
     @Test
     public void testConstruccionListado() throws Exception{
-        assert(listado.obtenerNumeroEmpleados() == 1000);
+        assert(listado.obtainNumberEmploy() == 1000);
     }
 
     /**
@@ -71,11 +69,12 @@ public class ListadoTest {
     public void testCargarArchivosAsignacion() throws Exception {
         // Se obtienen los empleados no asignados a cada asignatura
         // y se comprueba su valor
-        assert(listado.buscarEmpleadosSinDepartamento(Division.DIVNA).size() == 49);
-        assert(listado.buscarEmpleadosSinDepartamento(Division.DIVID).size() == 54);
-        assert(listado.buscarEmpleadosSinDepartamento(Division.DIVSW).size() == 42);
-        assert(listado.buscarEmpleadosSinDepartamento(Division.DIVHW).size() == 44);
-        assert(listado.buscarEmpleadosSinDepartamento(Division.DIVSER).size() == 49);
+        assert(listado.findEmployWithoutDepartment(Division.DIVNA).size() == 49);
+        assert(listado.findEmployWithoutDepartment(Division.DIVID).size() == 54);
+        assert(listado.findEmployWithoutDepartment(Division.DIVSW).size() == 42);
+        assert(listado.findEmployWithoutDepartment(Division.DIVHW).size() == 44);
+        assert(listado.findEmployWithoutDepartment(Division.DIVSER).size() == 49);
+
     }
 
     /**
@@ -85,7 +84,7 @@ public class ListadoTest {
     @Test
     public void testObtenerContadoresDepartamentos(){
         // Se obtienen los contadores para la asignatura ES
-        Map<Departamento, Long> contadores = listado.obtenerContadoresDepartamento(
+        Map<Departamento, Long> contadores = listado.obtainCountDepartment(
                 Division.DIVSER);
         contadores.keySet().stream().forEach(key -> System.out.println(
                 key.toString() + "- " + contadores.get(key)));
@@ -105,7 +104,7 @@ public class ListadoTest {
     public void testObtenerContadoresDivisionDepartamento() throws Exception {
         // Se obtienen los contadores para todos los grupos
         Map<Division, Map<Departamento, Long>> contadores =
-                listado.obtenerContadoresDivisionDepartamento();
+                listado.obtainCountDepartmentDivision();
 
         // Se comprueban los valores obtenenidos con los valores por referencia
         Long contadoresReferenciaNA[]={49L,53L,53L,58L};
@@ -130,4 +129,40 @@ public class ListadoTest {
 
     // Aqui habria que completar los casos de prueba para el resto de
     // metodos a ofrecer por la clase Listado
+    /**
+     * Test del procedimiento de asignacion de grupos procesando
+     * los archivos de asignacion. Tambien implica la prueba de
+     * busqueda de empleados sin grupo asignado en alguna asignatura
+     * @throws Exception
+     */
+    @Test
+    public void testEmployWithoutDivision() throws Exception {
+        assert(listado.findEmployWithoutDivision().size() == 213);
+    }
+
+    @Test
+    public void testDivDep() throws Exception {
+        assert(listado.findEmployWthDivDep().size() == 189);
+
+    }
+
+    @Test
+    public void testDniRepeated() throws Exception {
+        assert(listado.hasDniRepeated() == false);
+    }
+
+    @Test
+    public void testObtainDniRepeated() throws Exception {
+        assert(listado.obtainDniRepeated().size() == 0);
+    }
+
+    @Test
+    public void testMailRepeated() throws Exception {
+        assert(listado.hasMailRepeated() == true);
+    }
+
+    @Test
+    public void testObtainMailRepeated() throws Exception {
+        assert(listado.obtainMailRepeated().size() == 8);
+    }
 }

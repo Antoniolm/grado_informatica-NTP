@@ -19,6 +19,6 @@ public class main {
         if(prueba.hasMailRepeated())
             System.out.println("yes has repeated mail");
         //prueba.obtainMailRepeated();*/
-        ListadoTest test=new ListadoTest();
+        //ListadoTest test=new ListadoTest();
     }
 }
