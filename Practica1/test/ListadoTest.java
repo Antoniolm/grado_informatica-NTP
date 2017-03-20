@@ -140,27 +140,47 @@ public class ListadoTest {
         assert(listado.findEmployWithoutDivision().size() == 213);
     }
 
+    /**
+     * Prueba para detectar empleados con division y sin departamento
+     * @throws Exception
+     */
     @Test
     public void testDivDep() throws Exception {
         assert(listado.findEmployWthDivDep().size() == 189);
 
     }
 
+    /**
+     * Prueba para detectar empleados con dni repetido
+     * @throws Exception
+     */
     @Test
     public void testDniRepeated() throws Exception {
         assert(listado.hasDniRepeated() == false);
     }
 
+    /**
+     * Prueba para obtener los empleados con dni repetido
+     * @throws Exception
+     */
     @Test
     public void testObtainDniRepeated() throws Exception {
         assert(listado.obtainDniRepeated().size() == 0);
     }
 
+    /**
+     * Prueba para detectar los empleados con mail repetido
+     * @throws Exception
+     */
     @Test
     public void testMailRepeated() throws Exception {
         assert(listado.hasMailRepeated() == true);
     }
 
+    /**
+     * Prueba para obtener los empleados con mail repetido
+     * @throws Exception
+     */
     @Test
     public void testObtainMailRepeated() throws Exception {
         assert(listado.obtainMailRepeated().size() == 8);

@@ -1,7 +1,7 @@
 import java.io.IOException;
 
 /**
- * Created by LENOVO on 14/03/2017.
+ * Created by Antonio David López Machado on 14/03/2017.
  */
 public class main {
     public static void main(String[] args) throws IOException {

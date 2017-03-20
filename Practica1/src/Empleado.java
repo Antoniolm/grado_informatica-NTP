@@ -33,7 +33,7 @@ public class Empleado {
    }
 
    // Metodo para asignar el nombre
-   public void asignDni(String aDni) {
+   public void assignDni(String aDni) {
       this.nombre = aDni;
    }
 
@@ -43,7 +43,7 @@ public class Empleado {
    }
 
    // Metodo para asignar el nombre
-   public void asignName(String nombre) {
+   public void assignName(String nombre) {
       this.nombre = nombre;
    }
 
@@ -51,7 +51,7 @@ public class Empleado {
    public String obtainName() {return nombre; }
 
    // Metodo para asignar el apellido
-   public void asignLastName(String primerApellido) {
+   public void assignLastName(String primerApellido) {
       this.apellido = primerApellido;
    }
 
@@ -61,7 +61,7 @@ public class Empleado {
    }
 
    // Metodo para asignar el valor de sueldo
-   public void asignMail(String aMail) {
+   public void assignnMail(String aMail) {
       this.correo = aMail;
    }
 
@@ -71,7 +71,7 @@ public class Empleado {
    }
 
    // Metodo par asignar el departamento
-   public void asignDepartment(Departamento departamento) {
+   public void assignDepartment(Departamento departamento) {
       this.department = departamento;
    }
 
@@ -81,7 +81,7 @@ public class Empleado {
    }
 
    // Metodo par asignar el departamento
-   public void asignDivision(Division aDivision) {
+   public void assignDivision(Division aDivision) {
       this.division = aDivision;
    }
 

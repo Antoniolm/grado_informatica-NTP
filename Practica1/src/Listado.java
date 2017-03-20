@@ -9,14 +9,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Created by LENOVO on 07/03/2017.
+ * Created by Antonio David López Machado on 07/03/2017.
  */
 public class Listado {
-    /*+7
-
-     */
     Map<String, Empleado> list;
-
+    /**
+     * Constructor
+     * */
     public Listado(String fileName)throws IOException{
         list =  new HashMap<String,Empleado>();
         Stream<String> lines= Files.lines(Paths.get(fileName));
@@ -27,8 +26,9 @@ public class Listado {
                 toMap(employ -> employ.obtainDni(), Function.identity()));
     }
 
-    /*
-     */
+    /**
+     * It will assign a department to each employ
+     * */
     public void loadDepartment(String fileName)throws IOException{
         Stream<String> lines= Files.lines(Paths.get(fileName));
 
@@ -37,12 +37,13 @@ public class Listado {
 
         list.entrySet().stream().forEach(emp -> {
             if(departmentList.contains(emp.getKey()))
-                emp.getValue().asignDepartment(Departamento.valueOf(department));
+                emp.getValue().assignDepartment(Departamento.valueOf(department));
         });
     }
 
-    /*
-     */
+    /**
+     * It will assign a division to each employ
+     * */
     public void loadDivision(String fileName)throws IOException{
         Stream<String> lines= Files.lines(Paths.get(fileName));
 
@@ -51,16 +52,22 @@ public class Listado {
 
         list.entrySet().stream().forEach(emp -> {
             if(divisionList.contains(emp.getKey()))
-                emp.getValue().asignDivision(Division.valueOf(division));
+                emp.getValue().assignDivision(Division.valueOf(division));
         });
 
     }
 
+    /**
+     * It will return the number of employees in our list
+     * */
     public int obtainNumberEmploy(){
         long result = list.entrySet().stream().map(employ -> employ.getValue()).count();
         return (int)result;
     }
 
+    /**
+     * It will return the number of employees in each department in a division
+     * */
     public Map<Departamento, Long> obtainCountDepartment(Division aDivision){
          return list.entrySet().stream().filter(employ -> employ.getValue().obtainDivision()==aDivision).
                  map(employ -> employ.getValue().obtainDepartment()).
@@ -70,6 +77,9 @@ public class Listado {
                  Collectors.counting()));
     }
 
+    /**
+     *  It will return the number of employees in each division
+     * */
     public Map<Division, Map<Departamento, Long>> obtainCountDepartmentDivision(){
         Map<Division, Map<Departamento, Long>> mapa=new TreeMap<>();
         Stream.of(Division.values()).
@@ -88,6 +98,9 @@ public class Listado {
                  map(employ -> employ.getValue()).collect(Collectors.toList());
     }
 
+    /**
+     *  It will find the employees with division and without department
+     * */
     public List<Empleado> findEmployWthDivDep(){
         return list.entrySet().stream().
                 filter(employ -> employ.getValue().obtainDepartment() == Departamento.DEPNA &&
@@ -95,7 +108,9 @@ public class Listado {
                 map(employ -> employ.getValue()).collect(Collectors.toList());
     }
 
-
+    /**
+     *  It will find the employees without department
+     * */
     public List<Empleado> findEmployWithoutDepartment(Division division){
         return list.entrySet().stream().
                 filter(employ ->  employ.getValue().obtainDivision()== division&&
@@ -103,6 +118,9 @@ public class Listado {
                 map(employ -> employ.getValue()).collect(Collectors.toList());
     }
 
+    /**
+     *  It will find the employ with a repeated dni
+     * */
     public boolean hasDniRepeated(){
         boolean result=false;
         Map<String, Long> mailList = list.entrySet().stream().collect(Collectors.groupingBy(
@@ -119,6 +137,9 @@ public class Listado {
         return result;
     }
 
+    /**
+     *  It will return the employ with a repeated dni
+     * */
     public Map<String,List<Empleado>> obtainDniRepeated(){
         Map<String, Long> dniList = list.entrySet().stream().collect(Collectors.groupingBy(
                 employ -> employ.getValue().obtainDni(),
@@ -139,6 +160,9 @@ public class Listado {
         return result;
     }
 
+    /**
+     *  It will return if the list has employees with repeated email
+     * */
     public boolean hasMailRepeated(){
         boolean result=false;
         Map<String, Long> mailList = list.entrySet().stream().collect(Collectors.groupingBy(
@@ -155,6 +179,10 @@ public class Listado {
         return result;
     }
 
+
+    /**
+     *  It will return the employees that have a repeated email
+     * */
     public Map<String,List<Empleado>> obtainMailRepeated(){
         Map<String, Long> mailList = list.entrySet().stream().collect(Collectors.groupingBy(
                 employ -> employ.getValue().obtainMail(),
@@ -175,6 +203,10 @@ public class Listado {
         return result;
     }
 
+
+    /**
+     *  It will return a string with all elements of our list
+     * */
     public String toString(){
         String finalResult = list.entrySet().stream().map(emp -> emp.getValue().toString()).
                 reduce((result, emp) ->
