@@ -220,4 +220,125 @@ public class Listado {
 
         return new Empleado(flowEmploy.get(0), flowEmploy.get(1), flowEmploy.get(2), flowEmploy.get(3));
     }
+
+
+    /////////////////////////////////////////////////////
+    //
+    //  `Parte opcional A)Asignación equitativa por division
+    //
+    ////////////////////////////////////////////////////
+    /**
+     *  It will return a string with all elements of our list
+     * */
+    public void assignEmployWithoutDivision(){
+        Map<Division, Long> divisionLongMap = obtainEmpPerDiv();
+
+        Long maxDiv = divisionLongMap.entrySet().stream().map(div -> div.getValue()).reduce((x, y) -> {
+            if (x > y) return x;
+            else return y;
+        }).orElse(new Long(0));
+
+        Stream.of(Division.values()).forEach(div -> {
+            if(div!= Division.DIVNA)
+                assignEmployDivisionIquality(div,maxDiv);
+        });
+
+        Long numEmployWithoutDiv=(findEmployWithoutDivision().size()/4)+maxDiv;
+        Stream.of(Division.values()).forEach(div -> {
+            if(div!= Division.DIVNA)
+                assignEmployDivisionIquality(div,numEmployWithoutDiv);
+        });
+
+        System.out.println(" Division -"+obtainNumberEmployDiv(Division.DIVHW));
+        System.out.println(" Division -"+obtainNumberEmployDiv(Division.DIVID));
+        System.out.println(" Division -"+obtainNumberEmployDiv(Division.DIVSER));
+        System.out.println(" Division -"+obtainNumberEmployDiv(Division.DIVSW));
+    }
+
+    /**
+     * Metodo encargado de obtener el numero total de empleados en una division
+     * @param division
+     * @return
+     */
+    private long obtainNumberEmployDiv(Division division){
+        Map<Departamento, Long> departamentoLongMap = obtainCountDepartment(division);
+        return departamentoLongMap.entrySet().stream().map(depart -> depart.getValue()).
+                reduce((x, y) -> x+ y).orElse(new Long(0));
+    }
+
+    /**
+     * Metodo que obtiene un map de divisiones y para cada division se guarda el número total
+     * empleados en esa division
+     * @return
+     */
+    private Map<Division,Long> obtainEmpPerDiv(){
+        Map<Division,Long> result=new TreeMap<Division,Long>();
+        Stream.of(Division.values()).forEach(division -> result.put(division,obtainNumberEmployDiv(division)));
+
+        return result;
+    }
+
+    /**
+     * Metodo que nos permite asignar division hasta que todos esten equilibrados en empleados
+     * @param division
+     * @param maxDiv
+     */
+    private void assignEmployDivisionIquality(Division division,Long maxDiv){
+        List<Empleado> employWithoutDivision = findEmployWithoutDivision();
+        employWithoutDivision.stream().forEach(employ-> {
+            if (obtainNumberEmployDiv(division) < maxDiv){
+                employ.assignDivision(division);
+            }
+        });
+    }
+
+    /////////////////////////////////////////////////////
+    //
+    //  `Parte opcional B)Asignación equitativa por departamento
+    //
+    ////////////////////////////////////////////////////
+    /**
+     *  It will return a string with all elements of our list
+     * */
+    public void assignEmployWithoutDept(Division division){
+        Map<Departamento, Long> divisionLongMap = obtainCountDepartment(division);
+
+        Long maxDep = divisionLongMap.entrySet().stream().map(div -> div.getValue()).reduce((x, y) -> {
+            if (x > y) return x;
+            else return y;
+        }).orElse(new Long(0));
+
+        Stream.of(Departamento.values()).forEach(dept -> {
+            if(dept!= Departamento.DEPNA)
+                assignEmployDeptIquality(division,dept,maxDep);}
+        );
+
+        Long numEmployWithoutDep=(findEmployWithoutDivision().size()/3)+maxDep;
+        Stream.of(Departamento.values()).forEach(dept -> {
+            if(dept!= Departamento.DEPNA)
+            assignEmployDeptIquality(division,dept,numEmployWithoutDep);});
+
+        System.out.println(obtainNumberEmployDept(Division.DIVSER,Departamento.DEPSB));
+        System.out.println(obtainNumberEmployDept(Division.DIVSER,Departamento.DEPSM));
+        System.out.println(obtainNumberEmployDept(Division.DIVSER,Departamento.DEPSA));
+    }
+
+    /**
+     * Metodo que nos permite asignar departamento hasta que todos esten equilibrados en empleados
+     * @param div
+     * @param maxDiv
+     */
+    private void assignEmployDeptIquality(Division div,Departamento dept,Long maxDiv){
+        List<Empleado> employWithoutDept = findEmployWithoutDepartment(div);
+        employWithoutDept.stream().forEach(employ-> {
+            if (obtainNumberEmployDept(div,dept) < maxDiv){
+                employ.assignDepartment(dept);
+            }
+        });
+    }
+
+    private long obtainNumberEmployDept(Division division,Departamento dept){
+        return obtainCountDepartment(division).get(dept);
+    }
 }
+

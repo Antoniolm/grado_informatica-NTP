@@ -1,4 +1,5 @@
 
+import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -185,4 +186,14 @@ public class ListadoTest {
     public void testObtainMailRepeated() throws Exception {
         assert(listado.obtainMailRepeated().size() == 8);
     }
+
+    /**
+     * Prueba para obtener los empleados con mail repetido
+     * @throws Exception
+     */
+    /*@Test
+    public void testIqualityDivision() throws Exception {
+        //listado.assignEmployWithoutDivision();
+        //listado.assignEmployWithoutDept(Division.DIVSER);
+    }*/
 }
