@@ -191,9 +191,14 @@ public class ListadoTest {
      * Prueba para obtener los empleados con mail repetido
      * @throws Exception
      */
-    /*@Test
+    @Test
     public void testIqualityDivision() throws Exception {
-        //listado.assignEmployWithoutDivision();
-        //listado.assignEmployWithoutDept(Division.DIVSER);
-    }*/
+        listado.assignEmployWithoutDivision();
+        System.out.println("Sin division ->"+listado.findEmployWithoutDivision().size());
+        listado.assignEmployWithoutDept(Division.DIVSER);
+        listado.assignEmployWithoutDept(Division.DIVHW);
+        listado.assignEmployWithoutDept(Division.DIVSW);
+        listado.assignEmployWithoutDept(Division.DIVID);
+        System.out.println("Sin departamento ->"+listado.findEmployWthDivDep().size());
+    }
 }

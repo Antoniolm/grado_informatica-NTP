@@ -249,10 +249,11 @@ public class Listado {
                 assignEmployDivisionIquality(div,numEmployWithoutDiv);
         });
 
-        System.out.println(" Division -"+obtainNumberEmployDiv(Division.DIVHW));
-        System.out.println(" Division -"+obtainNumberEmployDiv(Division.DIVID));
-        System.out.println(" Division -"+obtainNumberEmployDiv(Division.DIVSER));
-        System.out.println(" Division -"+obtainNumberEmployDiv(Division.DIVSW));
+        System.out.println(" Division ->"+obtainNumberEmployDiv(Division.DIVHW));
+        System.out.println(" Division ->"+obtainNumberEmployDiv(Division.DIVID));
+        System.out.println(" Division ->"+obtainNumberEmployDiv(Division.DIVSER));
+        System.out.println(" Division ->"+obtainNumberEmployDiv(Division.DIVSW));
+        System.out.println(" Division ->"+obtainNumberEmployDiv(Division.DIVNA));
     }
 
     /**
@@ -313,7 +314,7 @@ public class Listado {
                 assignEmployDeptIquality(division,dept,maxDep);}
         );
 
-        Long numEmployWithoutDep=(findEmployWithoutDivision().size()/3)+maxDep;
+        Long numEmployWithoutDep=(findEmployWithoutDepartment(division).size()/3)+maxDep;
         Stream.of(Departamento.values()).forEach(dept -> {
             if(dept!= Departamento.DEPNA)
             assignEmployDeptIquality(division,dept,numEmployWithoutDep);});
