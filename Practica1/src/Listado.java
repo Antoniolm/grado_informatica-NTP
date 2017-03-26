@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.CollationElementIterator;
 import java.util.*;
 import java.util.function.Function;
 import java.util.regex.Pattern;
@@ -68,22 +67,22 @@ public class Listado {
     /**
      * It will return the number of employees in each department in a division
      * */
-    public Map<Departamento, Long> obtainCountDepartment(Division aDivision){
-         return list.entrySet().stream().filter(employ -> employ.getValue().obtainDivision()==aDivision).
-                 map(employ -> employ.getValue().obtainDepartment()).
-                 sorted(Comparator.naturalOrder()).
-                 collect(Collectors.groupingBy(Function.identity(),
-                 TreeMap::new,
-                 Collectors.counting()));
+    public Map<Departamento, Long> obtenerContadoresDepartamento(Division aDivision) {
+        return list.entrySet().stream().filter(employ -> employ.getValue().obtainDivision() == aDivision).
+                map(employ -> employ.getValue().obtainDepartment()).
+                sorted(Comparator.naturalOrder()).
+                collect(Collectors.groupingBy(Function.identity(),
+                        TreeMap::new,
+                        Collectors.counting()));
     }
 
     /**
      *  It will return the number of employees in each division
      * */
-    public Map<Division, Map<Departamento, Long>> obtainCountDepartmentDivision(){
+    public Map<Division, Map<Departamento, Long>> obtenerContadoresDivisionDepartamento(){
         Map<Division, Map<Departamento, Long>> mapa=new TreeMap<>();
         Stream.of(Division.values()).
-                forEach(division -> mapa.put(division,obtainCountDepartment(division)));
+                forEach(division -> mapa.put(division,obtenerContadoresDepartamento(division)));
         return mapa;
     }
 
@@ -92,7 +91,7 @@ public class Listado {
      * Metodo para buscar los empleados sin division asignada: es decir,
      * en el dato miembro division tendran el valor DIVNA
      * */
-    public List<Empleado> findEmployWithoutDivision(){
+    public List<Empleado> buscarEmpleadosSinDivision(){
          return list.entrySet().stream().
                  filter(employ -> employ.getValue().obtainDivision() == Division.DIVNA).
                  map(employ -> employ.getValue()).collect(Collectors.toList());
@@ -101,7 +100,7 @@ public class Listado {
     /**
      *  It will find the employees with division and without department
      * */
-    public List<Empleado> findEmployWthDivDep(){
+    public List<Empleado> buscarEmpleadosConDivisionSinDepartamento(){
         return list.entrySet().stream().
                 filter(employ -> employ.getValue().obtainDepartment() == Departamento.DEPNA &&
                         employ.getValue().obtainDivision() != Division.DIVNA).
@@ -111,7 +110,7 @@ public class Listado {
     /**
      *  It will find the employees without department
      * */
-    public List<Empleado> findEmployWithoutDepartment(Division division){
+    public List<Empleado> buscarEmpleadosSinDepartamento(Division division){
         return list.entrySet().stream().
                 filter(employ ->  employ.getValue().obtainDivision()== division&&
                         employ.getValue().obtainDepartment() == Departamento.DEPNA).
@@ -121,7 +120,7 @@ public class Listado {
     /**
      *  It will find the employ with a repeated dni
      * */
-    public boolean hasDniRepeated(){
+    public boolean hayDnisRepetidos(){
         boolean result=false;
         Map<String, Long> mailList = list.entrySet().stream().collect(Collectors.groupingBy(
                 employ -> employ.getValue().obtainDni(),
@@ -140,7 +139,7 @@ public class Listado {
     /**
      *  It will return the employ with a repeated dni
      * */
-    public Map<String,List<Empleado>> obtainDniRepeated(){
+    public Map<String,List<Empleado>> obtenerDnisRepetidos(){
         Map<String, Long> dniList = list.entrySet().stream().collect(Collectors.groupingBy(
                 employ -> employ.getValue().obtainDni(),
                 Collectors.counting()));
@@ -163,7 +162,7 @@ public class Listado {
     /**
      *  It will return if the list has employees with repeated email
      * */
-    public boolean hasMailRepeated(){
+    public boolean hayCorreosRepetidos(){
         boolean result=false;
         Map<String, Long> mailList = list.entrySet().stream().collect(Collectors.groupingBy(
                 employ -> employ.getValue().obtainMail(),
@@ -183,7 +182,7 @@ public class Listado {
     /**
      *  It will return the employees that have a repeated email
      * */
-    public Map<String,List<Empleado>> obtainMailRepeated(){
+    public Map<String,List<Empleado>> obtenerCorreosRepetidos(){
         Map<String, Long> mailList = list.entrySet().stream().collect(Collectors.groupingBy(
                 employ -> employ.getValue().obtainMail(),
                 Collectors.counting()));
@@ -230,8 +229,8 @@ public class Listado {
     /**
      *  It will return a string with all elements of our list
      * */
-    public void assignEmployWithoutDivision(){
-        Map<Division, Long> divisionLongMap = obtainEmpPerDiv();
+    public void asignarEmpleadosSinDivision(){
+        Map<Division, Long> divisionLongMap = totalEmpleadosPorDivision();
 
         Long maxDiv = divisionLongMap.entrySet().stream().map(div -> div.getValue()).reduce((x, y) -> {
             if (x > y) return x;
@@ -240,20 +239,23 @@ public class Listado {
 
         Stream.of(Division.values()).forEach(div -> {
             if(div!= Division.DIVNA)
-                assignEmployDivisionIquality(div,maxDiv);
+                asignacionEquitativaDivision(div,maxDiv);
         });
 
-        Long numEmployWithoutDiv=(findEmployWithoutDivision().size()/4)+maxDiv;
+        Long numEmployWithoutDiv=(buscarEmpleadosSinDivision().size()/4)+maxDiv;
         Stream.of(Division.values()).forEach(div -> {
             if(div!= Division.DIVNA)
-                assignEmployDivisionIquality(div,numEmployWithoutDiv);
+                asignacionEquitativaDivision(div,numEmployWithoutDiv);
         });
 
-        System.out.println(" Division ->"+obtainNumberEmployDiv(Division.DIVHW));
-        System.out.println(" Division ->"+obtainNumberEmployDiv(Division.DIVID));
-        System.out.println(" Division ->"+obtainNumberEmployDiv(Division.DIVSER));
-        System.out.println(" Division ->"+obtainNumberEmployDiv(Division.DIVSW));
-        System.out.println(" Division ->"+obtainNumberEmployDiv(Division.DIVNA));
+        int lastEmploy= buscarEmpleadosSinDivision().size();
+
+        if(lastEmploy>0){
+            Stream.of(Division.values()).forEach(div -> {
+                if(div!= Division.DIVNA)
+                    asignacionEquitativaDivision(div, totalEmpleadosDivision(div)+lastEmploy);
+            });
+        }
     }
 
     /**
@@ -261,8 +263,8 @@ public class Listado {
      * @param division
      * @return
      */
-    private long obtainNumberEmployDiv(Division division){
-        Map<Departamento, Long> departamentoLongMap = obtainCountDepartment(division);
+    public long totalEmpleadosDivision(Division division){
+        Map<Departamento, Long> departamentoLongMap = obtenerContadoresDepartamento(division);
         return departamentoLongMap.entrySet().stream().map(depart -> depart.getValue()).
                 reduce((x, y) -> x+ y).orElse(new Long(0));
     }
@@ -272,9 +274,9 @@ public class Listado {
      * empleados en esa division
      * @return
      */
-    private Map<Division,Long> obtainEmpPerDiv(){
+    private Map<Division,Long> totalEmpleadosPorDivision(){
         Map<Division,Long> result=new TreeMap<Division,Long>();
-        Stream.of(Division.values()).forEach(division -> result.put(division,obtainNumberEmployDiv(division)));
+        Stream.of(Division.values()).forEach(division -> result.put(division, totalEmpleadosDivision(division)));
 
         return result;
     }
@@ -284,10 +286,10 @@ public class Listado {
      * @param division
      * @param maxDiv
      */
-    private void assignEmployDivisionIquality(Division division,Long maxDiv){
-        List<Empleado> employWithoutDivision = findEmployWithoutDivision();
+    private void asignacionEquitativaDivision(Division division, Long maxDiv){
+        List<Empleado> employWithoutDivision = buscarEmpleadosSinDivision();
         employWithoutDivision.stream().forEach(employ-> {
-            if (obtainNumberEmployDiv(division) < maxDiv){
+            if (totalEmpleadosDivision(division) < maxDiv){
                 employ.assignDivision(division);
             }
         });
@@ -301,8 +303,8 @@ public class Listado {
     /**
      *  It will return a string with all elements of our list
      * */
-    public void assignEmployWithoutDept(Division division){
-        Map<Departamento, Long> divisionLongMap = obtainCountDepartment(division);
+    public void asignarEmpleadosDepartamento(Division division){
+        Map<Departamento, Long> divisionLongMap = obtenerContadoresDepartamento(division);
 
         Long maxDep = divisionLongMap.entrySet().stream().map(div -> div.getValue()).reduce((x, y) -> {
             if (x > y) return x;
@@ -311,17 +313,19 @@ public class Listado {
 
         Stream.of(Departamento.values()).forEach(dept -> {
             if(dept!= Departamento.DEPNA)
-                assignEmployDeptIquality(division,dept,maxDep);}
+                asignacionEquiDepartamento(division,dept,maxDep);}
         );
 
-        Long numEmployWithoutDep=(findEmployWithoutDepartment(division).size()/3)+maxDep;
+        Long numEmployWithoutDep=(buscarEmpleadosSinDepartamento(division).size()/3)+maxDep;
         Stream.of(Departamento.values()).forEach(dept -> {
             if(dept!= Departamento.DEPNA)
-            assignEmployDeptIquality(division,dept,numEmployWithoutDep);});
+            asignacionEquiDepartamento(division,dept,numEmployWithoutDep);});
 
-        System.out.println(obtainNumberEmployDept(Division.DIVSER,Departamento.DEPSB));
-        System.out.println(obtainNumberEmployDept(Division.DIVSER,Departamento.DEPSM));
-        System.out.println(obtainNumberEmployDept(Division.DIVSER,Departamento.DEPSA));
+        int lastEmploy= buscarEmpleadosSinDepartamento(division).size();
+        Long totalEmploy= totalEmpleadoDeptDivision(division,Departamento.DEPSM);
+        if(lastEmploy>0){
+            asignacionEquiDepartamento(division,Departamento.DEPSM,new Long(totalEmploy+lastEmploy));
+        }
     }
 
     /**
@@ -329,17 +333,17 @@ public class Listado {
      * @param div
      * @param maxDiv
      */
-    private void assignEmployDeptIquality(Division div,Departamento dept,Long maxDiv){
-        List<Empleado> employWithoutDept = findEmployWithoutDepartment(div);
+    private void asignacionEquiDepartamento(Division div, Departamento dept, Long maxDiv){
+        List<Empleado> employWithoutDept = buscarEmpleadosSinDepartamento(div);
         employWithoutDept.stream().forEach(employ-> {
-            if (obtainNumberEmployDept(div,dept) < maxDiv){
+            if (totalEmpleadoDeptDivision(div,dept) < maxDiv){
                 employ.assignDepartment(dept);
             }
         });
     }
 
-    private long obtainNumberEmployDept(Division division,Departamento dept){
-        return obtainCountDepartment(division).get(dept);
+    public long totalEmpleadoDeptDivision(Division division, Departamento dept){
+        return obtenerContadoresDepartamento(division).get(dept);
     }
 }
 

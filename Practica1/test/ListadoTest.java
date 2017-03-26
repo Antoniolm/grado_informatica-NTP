@@ -1,12 +1,10 @@
 
-import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 
 import java.io.IOException;
-import java.text.CollationElementIterator;
 import java.util.Map;
 
 /**
@@ -70,11 +68,11 @@ public class ListadoTest {
     public void testCargarArchivosAsignacion() throws Exception {
         // Se obtienen los empleados no asignados a cada asignatura
         // y se comprueba su valor
-        assert(listado.findEmployWithoutDepartment(Division.DIVNA).size() == 49);
-        assert(listado.findEmployWithoutDepartment(Division.DIVID).size() == 54);
-        assert(listado.findEmployWithoutDepartment(Division.DIVSW).size() == 42);
-        assert(listado.findEmployWithoutDepartment(Division.DIVHW).size() == 44);
-        assert(listado.findEmployWithoutDepartment(Division.DIVSER).size() == 49);
+        assert(listado.buscarEmpleadosSinDepartamento(Division.DIVNA).size() == 49);
+        assert(listado.buscarEmpleadosSinDepartamento(Division.DIVID).size() == 54);
+        assert(listado.buscarEmpleadosSinDepartamento(Division.DIVSW).size() == 42);
+        assert(listado.buscarEmpleadosSinDepartamento(Division.DIVHW).size() == 44);
+        assert(listado.buscarEmpleadosSinDepartamento(Division.DIVSER).size() == 49);
 
     }
 
@@ -85,7 +83,7 @@ public class ListadoTest {
     @Test
     public void testObtenerContadoresDepartamentos(){
         // Se obtienen los contadores para la asignatura ES
-        Map<Departamento, Long> contadores = listado.obtainCountDepartment(
+        Map<Departamento, Long> contadores = listado.obtenerContadoresDepartamento(
                 Division.DIVSER);
         contadores.keySet().stream().forEach(key -> System.out.println(
                 key.toString() + "- " + contadores.get(key)));
@@ -105,7 +103,7 @@ public class ListadoTest {
     public void testObtenerContadoresDivisionDepartamento() throws Exception {
         // Se obtienen los contadores para todos los grupos
         Map<Division, Map<Departamento, Long>> contadores =
-                listado.obtainCountDepartmentDivision();
+                listado.obtenerContadoresDivisionDepartamento();
 
         // Se comprueban los valores obtenenidos con los valores por referencia
         Long contadoresReferenciaNA[]={49L,53L,53L,58L};
@@ -138,7 +136,7 @@ public class ListadoTest {
      */
     @Test
     public void testEmployWithoutDivision() throws Exception {
-        assert(listado.findEmployWithoutDivision().size() == 213);
+        assert(listado.buscarEmpleadosSinDivision().size() == 213);
     }
 
     /**
@@ -147,7 +145,7 @@ public class ListadoTest {
      */
     @Test
     public void testDivDep() throws Exception {
-        assert(listado.findEmployWthDivDep().size() == 189);
+        assert(listado.buscarEmpleadosConDivisionSinDepartamento().size() == 189);
 
     }
 
@@ -157,7 +155,7 @@ public class ListadoTest {
      */
     @Test
     public void testDniRepeated() throws Exception {
-        assert(listado.hasDniRepeated() == false);
+        assert(listado.hayDnisRepetidos() == false);
     }
 
     /**
@@ -166,7 +164,7 @@ public class ListadoTest {
      */
     @Test
     public void testObtainDniRepeated() throws Exception {
-        assert(listado.obtainDniRepeated().size() == 0);
+        assert(listado.obtenerDnisRepetidos().size() == 0);
     }
 
     /**
@@ -175,7 +173,7 @@ public class ListadoTest {
      */
     @Test
     public void testMailRepeated() throws Exception {
-        assert(listado.hasMailRepeated() == true);
+        assert(listado.hayCorreosRepetidos() == true);
     }
 
     /**
@@ -184,21 +182,43 @@ public class ListadoTest {
      */
     @Test
     public void testObtainMailRepeated() throws Exception {
-        assert(listado.obtainMailRepeated().size() == 8);
+        assert(listado.obtenerCorreosRepetidos().size() == 8);
     }
 
     /**
-     * Prueba para obtener los empleados con mail repetido
+     * Prueba para asignar de forma equilibrada a los empleados
      * @throws Exception
      */
     @Test
-    public void testIqualityDivision() throws Exception {
-        listado.assignEmployWithoutDivision();
-        System.out.println("Sin division ->"+listado.findEmployWithoutDivision().size());
-        listado.assignEmployWithoutDept(Division.DIVSER);
-        listado.assignEmployWithoutDept(Division.DIVHW);
-        listado.assignEmployWithoutDept(Division.DIVSW);
-        listado.assignEmployWithoutDept(Division.DIVID);
-        System.out.println("Sin departamento ->"+listado.findEmployWthDivDep().size());
+    public void testEqualityDivision() throws Exception {
+        listado.asignarEmpleadosSinDivision();
+        System.out.println("-------Asignación Equilibrada de departamento y division-------");
+        System.out.println("Sin division ->"+listado.buscarEmpleadosSinDivision().size());
+        System.out.println(" DIVHW employ->"+listado.totalEmpleadosDivision(Division.DIVHW));
+        System.out.println(" DIVID employ->"+listado.totalEmpleadosDivision(Division.DIVID));
+        System.out.println(" DIVSER employ->"+listado.totalEmpleadosDivision(Division.DIVSER));
+        System.out.println(" DIVSW employ->"+listado.totalEmpleadosDivision(Division.DIVSW));
+
+        listado.asignarEmpleadosDepartamento(Division.DIVSER);
+        listado.asignarEmpleadosDepartamento(Division.DIVHW);
+        listado.asignarEmpleadosDepartamento(Division.DIVSW);
+        listado.asignarEmpleadosDepartamento(Division.DIVID);
+        System.out.println("Sin departamento ->"+listado.buscarEmpleadosConDivisionSinDepartamento().size());
+        System.out.println("-------DIVSER-------");
+        System.out.println("DEPSB ->"+listado.totalEmpleadoDeptDivision(Division.DIVSER,Departamento.DEPSB));
+        System.out.println("DEPSM ->"+listado.totalEmpleadoDeptDivision(Division.DIVSER,Departamento.DEPSM));
+        System.out.println("DEPSA ->"+listado.totalEmpleadoDeptDivision(Division.DIVSER,Departamento.DEPSA));
+        System.out.println("-------DIVHW-------");
+        System.out.println("DEPSB ->"+listado.totalEmpleadoDeptDivision(Division.DIVHW,Departamento.DEPSB));
+        System.out.println("DEPSM ->"+listado.totalEmpleadoDeptDivision(Division.DIVHW,Departamento.DEPSM));
+        System.out.println("DEPSA ->"+listado.totalEmpleadoDeptDivision(Division.DIVHW,Departamento.DEPSA));
+        System.out.println("-------DIVID-------");
+        System.out.println("DEPSB ->"+listado.totalEmpleadoDeptDivision(Division.DIVID,Departamento.DEPSB));
+        System.out.println("DEPSM ->"+listado.totalEmpleadoDeptDivision(Division.DIVID,Departamento.DEPSM));
+        System.out.println("DEPSA ->"+listado.totalEmpleadoDeptDivision(Division.DIVID,Departamento.DEPSA));
+        System.out.println("-------DIVSW-------");
+        System.out.println("DEPSB ->"+listado.totalEmpleadoDeptDivision(Division.DIVSW,Departamento.DEPSB));
+        System.out.println("DEPSM ->"+listado.totalEmpleadoDeptDivision(Division.DIVSW,Departamento.DEPSM));
+        System.out.println("DEPSA ->"+listado.totalEmpleadoDeptDivision(Division.DIVSW,Departamento.DEPSA));
     }
 }
