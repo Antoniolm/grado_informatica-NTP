@@ -26,7 +26,8 @@ public class Listado {
     }
 
     /**
-     * It will assign a department to each employ
+     * Metodo que asignara empleados en un departamento. Los empleados a asignar seran
+     * deterinados por el fichero pasado como parametro
      * */
     public void loadDepartment(String fileName)throws IOException{
         Stream<String> lines= Files.lines(Paths.get(fileName));
@@ -41,7 +42,8 @@ public class Listado {
     }
 
     /**
-     * It will assign a division to each employ
+     * Metodo que asignara empleados en una division. Los empleados a asignar seran
+     * deterinados por el fichero pasado como parametro
      * */
     public void loadDivision(String fileName)throws IOException{
         Stream<String> lines= Files.lines(Paths.get(fileName));
@@ -57,15 +59,14 @@ public class Listado {
     }
 
     /**
-     * It will return the number of employees in our list
+     * Devolvera el número de empleados en nuestro listado
      * */
     public int obtainNumberEmploy(){
-        long result = list.entrySet().stream().map(employ -> employ.getValue()).count();
-        return (int)result;
+        return list.size();
     }
 
     /**
-     * It will return the number of employees in each department in a division
+     *  Metodo que contara el numero de empleados departamento en una division concreta
      * */
     public Map<Departamento, Long> obtenerContadoresDepartamento(Division aDivision) {
         return list.entrySet().stream().filter(employ -> employ.getValue().obtainDivision() == aDivision).
@@ -77,7 +78,7 @@ public class Listado {
     }
 
     /**
-     *  It will return the number of employees in each division
+     *  Metodo que contara el numero de empleados por division y departamento
      * */
     public Map<Division, Map<Departamento, Long>> obtenerContadoresDivisionDepartamento(){
         Map<Division, Map<Departamento, Long>> mapa=new TreeMap<>();
@@ -98,7 +99,7 @@ public class Listado {
     }
 
     /**
-     *  It will find the employees with division and without department
+     *  Metodo que busca empleados sin departamento en una determinada division
      * */
     public List<Empleado> buscarEmpleadosConDivisionSinDepartamento(){
         return list.entrySet().stream().
@@ -108,7 +109,7 @@ public class Listado {
     }
 
     /**
-     *  It will find the employees without department
+     *  Metodo que busca empleados sin departamento en una determinada division
      * */
     public List<Empleado> buscarEmpleadosSinDepartamento(Division division){
         return list.entrySet().stream().
@@ -118,40 +119,48 @@ public class Listado {
     }
 
     /**
-     *  It will find the employ with a repeated dni
+     *  Devuelve si hay o no empleados con dni repetido
      * */
     public boolean hayDnisRepetidos(){
         boolean result=false;
-        Map<String, Long> mailList = list.entrySet().stream().collect(Collectors.groupingBy(
+        //Agrupación por dni de nuestros empleados
+        Map<String, Long> dniList = list.entrySet().stream().collect(Collectors.groupingBy(
                 employ -> employ.getValue().obtainDni(),
                 Collectors.counting()));
 
-        List<String> mailRepeated = mailList.entrySet().stream().filter(dni -> dni.getValue() > 1)
+        //Comprobamos si hay alguno repetido
+        List<String> dniRepeated = dniList.entrySet().stream().filter(dni -> dni.getValue() > 1)
                 .map(dni -> dni.getKey())
                 .collect(Collectors.toList());
 
-        if(mailRepeated.size()>0)
+        if(dniRepeated.size()>0)
             result=true;
 
         return result;
     }
 
     /**
-     *  It will return the employ with a repeated dni
+     *  Método que devolvera un map que contiene todos los empleados
+     *  de nuestro listado que tengan el dni repetido
      * */
     public Map<String,List<Empleado>> obtenerDnisRepetidos(){
+        //Agrupación por dni de nuestros empleados
         Map<String, Long> dniList = list.entrySet().stream().collect(Collectors.groupingBy(
                 employ -> employ.getValue().obtainDni(),
                 Collectors.counting()));
 
+        //Comprobamos si hay alguno repetido
         List<String> dniRepeated = dniList.entrySet().stream().filter(dni -> dni.getValue() > 1)
                 .map(dni -> dni.getKey())
                 .collect(Collectors.toList());
 
+        //Obtenemos una lista de empleados con dni repetidos
         List<Empleado> employDni = list.entrySet().stream().
                 filter(employ -> dniRepeated.contains(employ.getValue().obtainDni())).
                 map(employ -> employ.getValue()).
                 collect(Collectors.toList());
+
+        //Obtenemos los empleados repetidos por dni
         Map<String, List<Empleado>> result = employDni.stream().collect(Collectors.groupingBy(
                 employ -> employ.obtainDni()
                 ));
@@ -160,14 +169,16 @@ public class Listado {
     }
 
     /**
-     *  It will return if the list has employees with repeated email
+     *  Devuelve si hay o no empleados con correo repetido
      * */
     public boolean hayCorreosRepetidos(){
         boolean result=false;
+        //Agrupación por mail de nuestros empleados
         Map<String, Long> mailList = list.entrySet().stream().collect(Collectors.groupingBy(
                 employ -> employ.getValue().obtainMail(),
                 Collectors.counting()));
 
+        //Comprobamos si hay alguno repetido
         List<String> mailRepeated = mailList.entrySet().stream().filter(mail -> mail.getValue() > 1)
                 .map(mail -> mail.getKey())
                 .collect(Collectors.toList());
@@ -180,21 +191,27 @@ public class Listado {
 
 
     /**
-     *  It will return the employees that have a repeated email
+     *  Método que devolvera un map que contiene todos los empleados
+     *  de nuestro listado que tengan el correo repetido
      * */
     public Map<String,List<Empleado>> obtenerCorreosRepetidos(){
+        //Agrupación por mail de nuestros empleados
         Map<String, Long> mailList = list.entrySet().stream().collect(Collectors.groupingBy(
                 employ -> employ.getValue().obtainMail(),
                 Collectors.counting()));
 
+        //Comprobamos si hay alguno repetido
         List<String> mailRepeated = mailList.entrySet().stream().filter(mail -> mail.getValue() > 1)
                 .map(mail -> mail.getKey())
                 .collect(Collectors.toList());
 
+        //Obtenemos una lista de empleados con mail repetidos
         List<Empleado> employEmail = list.entrySet().stream().
                 filter(employ -> mailRepeated.contains(employ.getValue().obtainMail())).
                 map(employ -> employ.getValue()).
                 collect(Collectors.toList());
+
+        //Obtenemos los empleados repetidos por mail
         Map<String, List<Empleado>> result = employEmail.stream().collect(Collectors.groupingBy(
                 employ -> employ.obtainMail()
         ));
@@ -204,7 +221,8 @@ public class Listado {
 
 
     /**
-     *  It will return a string with all elements of our list
+     *  Método que devolvera una string que contiene todos los empleados
+     *  de nuestro listado
      * */
     public String toString(){
         String finalResult = list.entrySet().stream().map(emp -> emp.getValue().toString()).
@@ -220,28 +238,30 @@ public class Listado {
         return new Empleado(flowEmploy.get(0), flowEmploy.get(1), flowEmploy.get(2), flowEmploy.get(3));
     }
 
-
     /////////////////////////////////////////////////////
     //
     //  `Parte opcional A)Asignación equitativa por division
     //
     ////////////////////////////////////////////////////
     /**
-     *  It will return a string with all elements of our list
+     *  Asignara division de forma equitativa todos los empleados sin division
      * */
     public void asignarEmpleadosSinDivision(){
         Map<Division, Long> divisionLongMap = totalEmpleadosPorDivision();
 
+        //Obtenemos el numero de empleados por division maximo entre las divisiones
         Long maxDiv = divisionLongMap.entrySet().stream().map(div -> div.getValue()).reduce((x, y) -> {
             if (x > y) return x;
             else return y;
         }).orElse(new Long(0));
 
+        //Asignamos elementos hasta que todas las divisiones tengan el mismo numero de elementos
         Stream.of(Division.values()).forEach(div -> {
             if(div!= Division.DIVNA)
                 asignacionEquitativaDivision(div,maxDiv);
         });
 
+        //El resto de empleados los dividimos entre los 4 tipos de div y los asignamos
         Long numEmployWithoutDiv=(buscarEmpleadosSinDivision().size()/4)+maxDiv;
         Stream.of(Division.values()).forEach(div -> {
             if(div!= Division.DIVNA)
@@ -250,6 +270,7 @@ public class Listado {
 
         int lastEmploy= buscarEmpleadosSinDivision().size();
 
+        //Si aun queda algun empleado sin division lo añadimos en alguna de las divisiones.
         if(lastEmploy>0){
             Stream.of(Division.values()).forEach(div -> {
                 if(div!= Division.DIVNA)
@@ -301,21 +322,24 @@ public class Listado {
     //
     ////////////////////////////////////////////////////
     /**
-     *  It will return a string with all elements of our list
+     *  Asignara departamento de forma equitativa todos los empleados sin departamento
      * */
     public void asignarEmpleadosDepartamento(Division division){
         Map<Departamento, Long> divisionLongMap = obtenerContadoresDepartamento(division);
 
+        //Obtenemos el numero de empleados por dept maximo entre los departamentos
         Long maxDep = divisionLongMap.entrySet().stream().map(div -> div.getValue()).reduce((x, y) -> {
             if (x > y) return x;
             else return y;
         }).orElse(new Long(0));
 
+        //Asignamos elementos hasta que todas los departamentos tengan el mismo numero de elementos
         Stream.of(Departamento.values()).forEach(dept -> {
             if(dept!= Departamento.DEPNA)
                 asignacionEquiDepartamento(division,dept,maxDep);}
         );
 
+        //El resto de empleados los dividimos entre los 3 tipos de departamento y los asignamos
         Long numEmployWithoutDep=(buscarEmpleadosSinDepartamento(division).size()/3)+maxDep;
         Stream.of(Departamento.values()).forEach(dept -> {
             if(dept!= Departamento.DEPNA)
@@ -323,6 +347,8 @@ public class Listado {
 
         int lastEmploy= buscarEmpleadosSinDepartamento(division).size();
         Long totalEmploy= totalEmpleadoDeptDivision(division,Departamento.DEPSM);
+
+        //Si aun queda algun empleado sin departamento lo añadimos en alguno de los departamentos.
         if(lastEmploy>0){
             asignacionEquiDepartamento(division,Departamento.DEPSM,new Long(totalEmploy+lastEmploy));
         }

@@ -80,7 +80,7 @@ public class Empleado {
       return department;
    }
 
-   // Metodo par asignar el departamento
+   // Metodo par asignar la division
    public void assignDivision(Division aDivision) {
       this.division = aDivision;
    }
@@ -89,12 +89,6 @@ public class Empleado {
    public Division obtainDivision() {
       return this.division;
    }
-
-   // Recupera nombre y primer apellido
-   public String obtainNombreApellido() {
-      return String.format("%s %s", obtainName(), obtainLastName());
-   }
-
 
    // Metodo toString
    @Override
