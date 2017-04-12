@@ -97,17 +97,17 @@ object Main {
       result
     }
   }
-  
+
   /**
     * Ejercicio 4: Busqueda binaria generica
     * @param elem
     * @param lista
     * @return
     */
-  def busquedaBinaria(elem: Int, lista: List[Int]): Int = {
+  def busquedaBinaria[A](elem: A, lista: List[A]): Int = {
 
       @annotation.tailrec
-      def auxiliar(elem: Int, lista: List[Int], infLimit: Int, posActual: Int, supLimit: Int):Int ={
+      def auxiliar[A](elem: A, lista: List[A], infLimit: Int, posActual: Int, supLimit: Int):Int ={
         if (infLimit>supLimit) -1
         else if ( elem == lista(posActual) ) posActual
         else if ( elem < lista(posActual) ) auxiliar(elem, lista, infLimit, ((infLimit+posActual-1)/2), (posActual-1))
@@ -115,5 +115,5 @@ object Main {
       }
 
       auxiliar(elem, lista, 0, lista.length/2, lista.length)
-    }
+  }
 }
