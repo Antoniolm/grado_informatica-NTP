@@ -40,6 +40,9 @@ object Main {
     //val lista2:List[Char]=List('(',')',')','(',')','(',')',')' )
     val lista2:List[Char]=List('(','c','c','c','(','c','c','c','c','c','(','(','c','c','c','(','c',')',')',')',')')
     println("Resultado="+chequearBalance(0,lista2))
+
+    val lista3:List[Int]=List(1,2,4,5,7,45,67,98,123)
+    println("Resultado="+busquedaBinaria(5,lista3))
   }
 
   /**
@@ -94,14 +97,23 @@ object Main {
       result
     }
   }
-
+  
   /**
-    * Ejercicio 4:
-    *
-
-    * @return contador de numero de vueltas posibles
+    * Ejercicio 4: Busqueda binaria generica
+    * @param elem
+    * @param lista
+    * @return
     */
-  def busquedaBinaria(cantidad: Int, monedas: List[Int]): Int = {
-    0
-  }
+  def busquedaBinaria(elem: Int, lista: List[Int]): Int = {
+
+      @annotation.tailrec
+      def auxiliar(elem: Int, lista: List[Int], infLimit: Int, posActual: Int, supLimit: Int):Int ={
+        if (infLimit>supLimit) -1
+        else if ( elem == lista(posActual) ) posActual
+        else if ( elem < lista(posActual) ) auxiliar(elem, lista, infLimit, ((infLimit+posActual-1)/2), (posActual-1))
+        else auxiliar(elem, lista, (posActual+1), ((supLimit+posActual+1)/2), supLimit)
+      }
+
+      auxiliar(elem, lista, 0, lista.length/2, lista.length)
+    }
 }
