@@ -31,6 +31,15 @@ object Main {
 
     val lista:List[Int]=List(1,2,3)
     println("Resultado="+contarCambiosPosibles(4,lista))
+
+    //val lista2:List[Char]=List('(','i','f','(','a', '¿','b',')' ,'(','b','/','a',')','e','l','s','e', '(','a','/','(','b'
+    //  ,'*','b',')',')',')')
+    //val lista2:List[Char]=List('(','c','c','c','(','c','c','c',')','c','c','(','(','c','c','c','(','c',')',')',')',')')
+
+    //val lista2:List[Char]=List('(',')',')','(')
+    //val lista2:List[Char]=List('(',')',')','(',')','(',')',')' )
+    val lista2:List[Char]=List('(','c','c','c','(','c','c','c','c','c','(','(','c','c','c','(','c',')',')',')',')')
+    println("Resultado="+chequearBalance(0,lista2))
   }
 
   /**
@@ -51,9 +60,16 @@ object Main {
     * @param cadena cadena a analizar
     * @return valor booleano con el resultado de la operacion
     */
-  def chequearBalance(cadena: List[Char]): Boolean = {
-     // A rellenar
-    false
+  def chequearBalance(cant:Int,cadena: List[Char]): Boolean = {
+    if(cadena.isEmpty && cant==0) true
+    else if(cadena.isEmpty && cant>0) false
+    else if(cant<0)false
+    else {
+      val charact=cadena.head
+      if(charact=='(') chequearBalance(cant+1,cadena.tail)
+      else if(charact==')') chequearBalance(cant-1,cadena.tail)
+      else chequearBalance(cant,cadena.tail)
+    }
   }
 
   /**
@@ -65,7 +81,6 @@ object Main {
     * @return contador de numero de vueltas posibles
     */
   def contarCambiosPosibles(cantidad: Int, monedas: List[Int]): Int = {
-     // A rellenar
      var i=0
     var result=0
 
@@ -78,5 +93,15 @@ object Main {
       }
       result
     }
+  }
+
+  /**
+    * Ejercicio 4:
+    *
+
+    * @return contador de numero de vueltas posibles
+    */
+  def busquedaBinaria(cantidad: Int, monedas: List[Int]): Int = {
+    0
   }
 }
