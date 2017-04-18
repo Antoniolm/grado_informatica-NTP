@@ -29,7 +29,7 @@ object Main {
     println(calcularValorTrianguloPascal(10, 15))
     println(calcularValorTrianguloPascal(0, 0))
 
-    val lista:List[Int]=List(1,2,3)
+    val lista:List[Int]=List(3,2,1)
     println("Resultado="+contarCambiosPosibles(4,lista))
 
     //val lista2:List[Char]=List('(','i','f','(','a', '¿','b',')' ,'(','b','/','a',')','e','l','s','e', '(','a','/','(','b'
@@ -39,10 +39,10 @@ object Main {
     //val lista2:List[Char]=List('(',')',')','(')
     //val lista2:List[Char]=List('(',')',')','(',')','(',')',')' )
     val lista2:List[Char]=List('(','c','c','c','(','c','c','c','c','c','(','(','c','c','c','(','c',')',')',')',')')
-    println("Resultado="+chequearBalance(0,lista2))
+    println("Resultado="+chequearBalance(lista2))
 
     val lista3:List[Int]=List(1,2,4,5,7,45,67,98,123)
-    println("Resultado="+busquedaBinaria(5,lista3))
+    println("Resultado="+busquedaBinaria(5,lista3,(x:Int,y:Int)=>x<y))
   }
 
   /**
@@ -63,16 +63,20 @@ object Main {
     * @param cadena cadena a analizar
     * @return valor booleano con el resultado de la operacion
     */
-  def chequearBalance(cant:Int,cadena: List[Char]): Boolean = {
-    if(cadena.isEmpty && cant==0) true
-    else if(cadena.isEmpty && cant>0) false
-    else if(cant<0)false
-    else {
-      val charact=cadena.head
-      if(charact=='(') chequearBalance(cant+1,cadena.tail)
-      else if(charact==')') chequearBalance(cant-1,cadena.tail)
-      else chequearBalance(cant,cadena.tail)
+  def chequearBalance(cadena: List[Char]): Boolean = {
+
+    def auxiliar(cant:Int,cadena: List[Char]): Boolean = {
+      if (cadena.isEmpty && cant == 0) true
+      else if (cadena.isEmpty && cant > 0) false
+      else if (cant < 0) false
+      else {
+        val charact = cadena.head
+        if (charact == '(') auxiliar(cant + 1, cadena.tail)
+        else if (charact == ')') auxiliar(cant - 1, cadena.tail)
+        else auxiliar(cant, cadena.tail)
+      }
     }
+    auxiliar(0,cadena);
   }
 
   /**
@@ -84,19 +88,17 @@ object Main {
     * @return contador de numero de vueltas posibles
     */
   def contarCambiosPosibles(cantidad: Int, monedas: List[Int]): Int = {
-     var i=0
     var result=0
 
     if(cantidad==0) 1
-    else if(cantidad < 0) 0
+    else if(monedas.isEmpty || cantidad < 0) 0
     else {
-      while(i<monedas.length && cantidad-monedas(i)>=0) {
-        result=result+contarCambiosPosibles(cantidad-monedas(i), monedas)
-        i=i+1
-      }
-      result
+      val moneda=monedas.head
+      contarCambiosPosibles(cantidad-moneda, monedas)+contarCambiosPosibles(cantidad, monedas.tail)
     }
+
   }
+
 
   /**
     * Ejercicio 4: Busqueda binaria generica
@@ -104,13 +106,13 @@ object Main {
     * @param lista
     * @return
     */
-  def busquedaBinaria[A](elem: A, lista: List[A]): Int = {
+  def busquedaBinaria[A](elem: A, lista: List[A],comparar:(A,A)=>Boolean): Int = {
 
       @annotation.tailrec
       def auxiliar[A](elem: A, lista: List[A], infLimit: Int, posActual: Int, supLimit: Int):Int ={
         if (infLimit>supLimit) -1
         else if ( elem == lista(posActual) ) posActual
-        else if ( elem < lista(posActual) ) auxiliar(elem, lista, infLimit, ((infLimit+posActual-1)/2), (posActual-1))
+        else if ( comparar(elem,lista(posActual)) ) auxiliar(elem, lista, infLimit, ((infLimit+posActual-1)/2), (posActual-1))
         else auxiliar(elem, lista, (posActual+1), ((supLimit+posActual+1)/2), supLimit)
       }
 
