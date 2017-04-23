@@ -109,7 +109,7 @@ object Main {
   def busquedaBinaria[A](elem: A, lista: List[A],comparar:(A,A)=>Boolean): Int = {
 
       @annotation.tailrec
-      def auxiliar[A](elem: A, lista: List[A], infLimit: Int, posActual: Int, supLimit: Int):Int ={
+      def auxiliar(elem: A, lista: List[A], infLimit: Int, posActual: Int, supLimit: Int):Int ={
         if (infLimit>supLimit) -1
         else if ( elem == lista(posActual) ) posActual
         else if ( comparar(elem,lista(posActual)) ) auxiliar(elem, lista, infLimit, ((infLimit+posActual-1)/2), (posActual-1))
@@ -117,5 +117,6 @@ object Main {
       }
 
       auxiliar(elem, lista, 0, lista.length/2, lista.length)
+
   }
 }
