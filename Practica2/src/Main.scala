@@ -30,7 +30,7 @@ object Main {
     println(calcularValorTrianguloPascal(10, 15))
     println(calcularValorTrianguloPascal(0, 0))
 
-    val lista:List[Int]=List(0)
+    val lista:List[Int]=List(3,2,1)
     println("Resultado="+contarCambiosPosibles(4,lista))
 
     //val lista2:List[Char]=List('(','i','f','(','a', '¿','b',')' ,'(','b','/','a',')','e','l','s','e', '(','a','/','(','b'
@@ -111,7 +111,7 @@ object Main {
 
       @annotation.tailrec
       def auxiliar(elem: A, lista: List[A], infLimit: Int, posActual: Int, supLimit: Int):Int ={
-        if (infLimit>supLimit) -1
+        if (infLimit>supLimit || lista.isEmpty) -1
         else if ( elem == lista(posActual) ) posActual
         else if ( comparar(elem,lista(posActual)) ) auxiliar(elem, lista, infLimit, ((infLimit+posActual-1)/2), (posActual-1))
         else auxiliar(elem, lista, (posActual+1), ((supLimit+posActual+1)/2), supLimit)
