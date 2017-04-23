@@ -8,7 +8,22 @@ import org.junit.Assert._
 
 class Test extends TestCase{
 
-  def test{
+  def testCalcularValorTrianguloPascal{
+    assert(2>1)
+    println("yep")
+  }
+
+  def testChequearBalance{
+    assert(2>1)
+    println("yep")
+  }
+
+  def testContarCambiosPosibles{
+    assert(2>1)
+    println("yep")
+  }
+
+  def testBusquedaBinaria{
     assert(2>1)
     println("yep")
   }
