@@ -5,47 +5,6 @@
   */
 
 object Main {
-
-  /**
-    * Metodo main: en realidad no es necesario porque el desarrollo
-    * deberia guiarse por los tests de prueba
-    *
-    * @param args
-    */
-
-  def main(args: Array[String]) {
-    println("................... Triangulo de Pascal ...................")
-
-    // Se muestran 10 filas del trinagulo de Pascal
-    for (row <- 0 to 10) {
-      // Se muestran 10 10 columnas
-      for (col <- 0 to row)
-        print(calcularValorTrianguloPascal(col, row) + " ")
-
-      // Salto de linea final para mejorar la presentacion
-      println()
-    }
-
-    // Se muestra el valor que debe ocupar la columna 5 en la fila 10
-    println(calcularValorTrianguloPascal(10, 15))
-    println(calcularValorTrianguloPascal(0, 0))
-
-    val lista:List[Int]=List(3,2,1)
-    println("Resultado="+contarCambiosPosibles(4,lista))
-
-    //val lista2:List[Char]=List('(','i','f','(','a', '¿','b',')' ,'(','b','/','a',')','e','l','s','e', '(','a','/','(','b'
-    //  ,'*','b',')',')',')')
-    //val lista2:List[Char]=List('(','c','c','c','(','c','c','c',')','c','c','(','(','c','c','c','(','c',')',')',')',')')
-
-    //val lista2:List[Char]=List('(',')',')','(')
-    //val lista2:List[Char]=List('(',')',')','(',')','(',')',')' )
-    val lista2:List[Char]=List('(','c','c','c','(','c','c','c','c','c','(','(','c','c','c','(','c',')',')',')',')')
-    println("Resultado="+chequearBalance(lista2))
-
-    val lista3:List[Int]=List(1,2,4,5,7,45,67,98,123)
-    println("Resultado="+busquedaBinaria(5,lista3,(x:Int,y:Int)=>x<y))
-  }
-
   /**
     * Ejercicio 1: funcion para generar el triangulo de Pascal
     *
