@@ -21,11 +21,11 @@
     </orderEntry>
     <orderEntry type="module-library">
       <library>
-        <CLASSES />
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Downloads/scalatest_2.11-3.0.1-javadoc.jar!/" />
+        </CLASSES>
         <JAVADOC />
-        <SOURCES>
-          <root url="jar://$USER_HOME$/Downloads/scalatest_2.11-3.0.1-sources.jar!/" />
-        </SOURCES>
+        <SOURCES />
       </library>
     </orderEntry>
   </component>
