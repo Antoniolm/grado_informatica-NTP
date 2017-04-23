@@ -3,6 +3,7 @@
   * Objeto singleton para probar la funcionalidad del triangulo
   * de Pascal
   */
+
 object Main {
 
   /**
