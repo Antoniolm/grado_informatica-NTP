@@ -15,21 +15,27 @@ class Test extends TestCase{
   def testChequearBalance{
     var lista2:List[Char]=List('(','i','f','(','a', '¿','b',')' ,'(','b','/','a',')','e','l','s','e', '(','a','/','(','b'
       ,'*','b',')',')',')')
-    assert(Main.chequearBalance(lista2));
+    assertTrue(Main.chequearBalance(lista2));
+
     lista2=List('(','c','c','c','(','c','c','c',')','c','c','(','(','c','c','c','(','c',')',')',')',')')
-    assert(Main.chequearBalance(lista2));
+    assertTrue(Main.chequearBalance(lista2));
+
     lista2=List('(',')',')','(')
-    assert(Main.chequearBalance(lista2));
+    assertFalse(Main.chequearBalance(lista2));
+
     lista2=List('(',')',')','(',')','(',')',')' )
-    assert(Main.chequearBalance(lista2));
+    assertFalse(Main.chequearBalance(lista2));
+
     lista2=List('(','c','c','c','(','c','c','c','c','c','(','(','c','c','c','(','c',')',')',')',')')
-    assert(Main.chequearBalance(lista2));
-    assert(Main.chequearBalance(lista2));
+    assertFalse(Main.chequearBalance(lista2));
   }
 
   def testContarCambiosPosibles{
-    assert(2>1)
-    println("yep")
+    var lista:List[Int]=List(3,2,1)
+    assertEquals(Main.contarCambiosPosibles(4,lista),4)
+
+    lista=List(1)
+    assertEquals(Main.contarCambiosPosibles(0,lista),1)
   }
 
   def testBusquedaBinaria{
