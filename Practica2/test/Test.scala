@@ -35,7 +35,7 @@ class Test extends TestCase{
     assertEquals(Main.calcularValorTrianguloPascal(8, 10), 45)
     assertEquals(Main.calcularValorTrianguloPascal(9, 10), 10)
     assertEquals(Main.calcularValorTrianguloPascal(10, 10), 1)
-    
+
     //Comprobamos los limites izquierda y derecha del triangulo e pascal
     //ambos limites deben tener un valor de 1 en cada elemento.
     for (i <- 0 until 10) {
@@ -46,6 +46,8 @@ class Test extends TestCase{
   }
 
   def testChequearBalance{
+
+    //Cadenas validas
     var lista2:List[Char]=List('(','i','f','(','a', '¿','b',')' ,'(','b','/','a',')','e','l','s','e', '(','a','/','(','b'
       ,'*','b',')',')',')')
     assertTrue(Main.chequearBalance(lista2));
@@ -53,6 +55,7 @@ class Test extends TestCase{
     lista2=List('(','c','c','c','(','c','c','c',')','c','c','(','(','c','c','c','(','c',')',')',')',')')
     assertTrue(Main.chequearBalance(lista2));
 
+    //Cadenas invalidas
     lista2=List('(',')',')','(')
     assertFalse(Main.chequearBalance(lista2));
 
@@ -67,8 +70,19 @@ class Test extends TestCase{
     var lista:List[Int]=List(3,2,1)
     assertEquals(Main.contarCambiosPosibles(4,lista),4)
 
+    //Si el valor es negativo
+    assertEquals(Main.contarCambiosPosibles(-1,lista),0)
+
+    //Con un conjunto de monedas reducido
     lista=List(1)
+    assertEquals(Main.contarCambiosPosibles(4,lista),1)
+
+    //Si se pide cambio de 0
     assertEquals(Main.contarCambiosPosibles(0,lista),1)
+
+    //Si no hay conjunto de monedas
+    lista=List()
+    assertEquals(Main.contarCambiosPosibles(4,lista),0)
   }
 
   def testBusquedaBinaria{
