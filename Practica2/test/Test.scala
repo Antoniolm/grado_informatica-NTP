@@ -1,5 +1,5 @@
 /**
-  * Created by LENOVO on 18/04/2017.
+  * Created by Antonio David López Machado on 18/04/2017.
   */
 
 import junit.framework.TestCase
@@ -7,6 +7,9 @@ import org.junit.Assert._
 
 class Test extends TestCase{
 
+  /**
+    * Test realizado sobre el metodo -> CalcularValorTrianguloPascal
+    */
   def testCalcularValorTrianguloPascal {
 
     // Se muestran 10 filas del trinagulo de Pascal
@@ -23,7 +26,7 @@ class Test extends TestCase{
     assertEquals(Main.calcularValorTrianguloPascal(10, 15), 3003)
     assertEquals(Main.calcularValorTrianguloPascal(1, 2), 2)
 
-    //Chequeamos los todos los elemento de la fila 10 para comprobar su correcto calculo
+    //Chequeamos todos los elemento de la fila 10 para comprobar su correcto calculo
     assertEquals(Main.calcularValorTrianguloPascal(0, 10), 1)
     assertEquals(Main.calcularValorTrianguloPascal(1, 10), 10)
     assertEquals(Main.calcularValorTrianguloPascal(2, 10), 45)
@@ -45,6 +48,9 @@ class Test extends TestCase{
 
   }
 
+  /**
+    * Test realizado sobre el metodo -> ChequearBalance
+    */
   def testChequearBalance{
 
     //Cadenas validas
@@ -66,6 +72,9 @@ class Test extends TestCase{
     assertFalse(Main.chequearBalance(lista2));
   }
 
+  /**
+    * Test realizado sobre el metodo -> ContarCambiosPosibles
+    * */
   def testContarCambiosPosibles{
     var lista:List[Int]=List(3,2,1)
     assertEquals(Main.contarCambiosPosibles(4,lista),4)
@@ -85,14 +94,20 @@ class Test extends TestCase{
     assertEquals(Main.contarCambiosPosibles(4,lista),0)
   }
 
+  /**
+    * Test realizado sobre el metodo -> busqueda binaria
+    */
   def testBusquedaBinaria{
+    //Busquedas sobre un conjunto
     val lista:List[Int]=List(1,2,4,5,7,45,67,98,123)
-    assertEquals(Main.busquedaBinaria(5,lista,(x:Int,y:Int)=>x<y),3)
-    assertEquals(Main.busquedaBinaria(7,lista,(x:Int,y:Int)=>x<y),4)
-    assertEquals(Main.busquedaBinaria(1,lista,(x:Int,y:Int)=>x<y),0)
-    assertEquals(Main.busquedaBinaria(123,lista,(x:Int,y:Int)=>x<y),8)
-    assertEquals(Main.busquedaBinaria(46,lista,(x:Int,y:Int)=>x<y),-1)
+    assertEquals(Main.busquedaBinaria(5,lista,(x:Int,y:Int)=>x<y),3)  //Elemento aleatorio
+    assertEquals(Main.busquedaBinaria(7,lista,(x:Int,y:Int)=>x<y),4)  //elemento intermemdio
+    assertEquals(Main.busquedaBinaria(1,lista,(x:Int,y:Int)=>x<y),0)  //primer elemento
+    assertEquals(Main.busquedaBinaria(123,lista,(x:Int,y:Int)=>x<y),8)//ultimo elemento
+    assertEquals(Main.busquedaBinaria(46,lista,(x:Int,y:Int)=>x<y),-1)//elemento no disponible
 
+
+    //Busquedas sobre un conjunto vacio
     val listaEmpty:List[Int]=List()
     assertEquals(Main.busquedaBinaria(2,listaEmpty,(x:Int,y:Int)=>x<y),-1)
   }
