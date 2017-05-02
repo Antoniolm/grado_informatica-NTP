@@ -116,7 +116,7 @@ class ConjuntoSuite extends TestCase {
   /**
     * Test de forall
     */
-  /*def testParaTodo() {
+  def testParaTodo() {
     val conjunto = Conjunto((x: Int) => x < 10)
 
     // No todos los elementos del conjunto son > 0
@@ -129,7 +129,7 @@ class ConjuntoSuite extends TestCase {
   /**
     * Test para existe
     */
-  def testExiste() {
+  /*def testExiste() {
     val conjunto = Conjunto((x: Int) => x < 10)
 
     // No existe en el conjunto ningun elemento mayor de 10

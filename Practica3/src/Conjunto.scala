@@ -75,9 +75,9 @@ object Conjunto{
 
   def paraTodo(conjunto : Conjunto, predicado : Int => Boolean) : Boolean = {
     def iterar(elemento : Int) : Boolean = {
-      if(!predicado(elemento) && !conjunto.funcionCaracteristica(elemento)) false
+      if(conjunto.funcionCaracteristica(elemento)) false
       else if (elemento==LIMITE) true
-      else predicado(elemento) && iterar(elemento+1)
+      else predicado(elemento) & iterar(elemento+1)
     }
     iterar(-LIMITE)
   }
