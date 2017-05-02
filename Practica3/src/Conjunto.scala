@@ -58,7 +58,7 @@ object Conjunto{
   }
 
   def union(c1 : Conjunto, c2 : Conjunto) : Conjunto = {
-    Conjunto((x:Int) => c1.funcionCaracteristica(x) || c2.funcionCaracteristica(x))
+    Conjunto((x:Int) => c1.funcionCaracteristica(x) | c2.funcionCaracteristica(x))
   }
 
   def interseccion(c1 : Conjunto, c2 : Conjunto) : Conjunto = {
