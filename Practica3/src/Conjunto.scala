@@ -73,6 +73,24 @@ object Conjunto{
     Conjunto((x:Int) => c.funcionCaracteristica(x) & predicado(x))
   }
 
+  def paraTodo(conjunto : Conjunto, predicado : Int => Boolean) : Boolean = {
+    def iterar(elemento : Int) : Boolean = {
+      if(!predicado(elemento) && !conjunto.funcionCaracteristica(elemento)) false
+      else if (elemento==LIMITE) true
+      else predicado(elemento) && iterar(elemento+1)
+    }
+    iterar(-LIMITE)
+  }
+
+  def existe(c : Conjunto, predicado : Int => Boolean) : Boolean ={
+    ???
+  }
+
+  def map(c : Conjunto, funcion : Int => Int) : Conjunto = {
+    ???
+  }
+
+
 }
 
 object EjemploUso extends App{
