@@ -75,15 +75,20 @@ object Conjunto{
 
   def paraTodo(conjunto : Conjunto, predicado : Int => Boolean) : Boolean = {
     def iterar(elemento : Int) : Boolean = {
-      if(conjunto.funcionCaracteristica(elemento)) false
+      if( !predicado(elemento) & conjunto.funcionCaracteristica(elemento)) false
       else if (elemento==LIMITE) true
-      else predicado(elemento) & iterar(elemento+1)
+      else iterar(elemento+1)
     }
     iterar(-LIMITE)
   }
 
   def existe(c : Conjunto, predicado : Int => Boolean) : Boolean ={
-    ???
+    def iterar(elemento : Int) : Boolean = {
+      if( predicado(elemento) & c.funcionCaracteristica(elemento)) true
+      else if (elemento==LIMITE) false
+      else iterar(elemento+1)
+    }
+    iterar(-LIMITE)
   }
 
   def map(c : Conjunto, funcion : Int => Int) : Conjunto = {

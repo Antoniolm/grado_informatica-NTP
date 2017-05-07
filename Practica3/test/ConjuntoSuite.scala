@@ -129,7 +129,7 @@ class ConjuntoSuite extends TestCase {
   /**
     * Test para existe
     */
-  /*def testExiste() {
+  def testExiste() {
     val conjunto = Conjunto((x: Int) => x < 10)
 
     // No existe en el conjunto ningun elemento mayor de 10
@@ -142,7 +142,7 @@ class ConjuntoSuite extends TestCase {
   /**
     * Test de map
     */
-  def testMap() {
+  /*def testMap() {
     // Definicion del conjunto
     val conjunto = Conjunto((x: Int) => x < 10)
 
