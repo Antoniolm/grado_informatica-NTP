@@ -40,7 +40,8 @@ class ConjuntoSuite extends TestCase {
       val s = Conjunto.union(s1, s2)
       assert(s(1), "fallo: s no contiene a 1")
       assert(s(2), "fallo: s no contiene a 2")
-      //assert(!s(3), "fallo: s contiene a 3")
+      assert(!s(3), "fallo: s contiene a 3")
+
     }
   }
 
@@ -142,7 +143,7 @@ class ConjuntoSuite extends TestCase {
   /**
     * Test de map
     */
-  /*def testMap() {
+  def testMap() {
     // Definicion del conjunto
     val conjunto = Conjunto((x: Int) => x < 10)
 
@@ -153,10 +154,16 @@ class ConjuntoSuite extends TestCase {
     // 5 y 6 pertenecen al conjunto de partida
     assert(resultado(30))
     assert(resultado(31))
+    assert(resultado(34))
+    assert(resultado(25))
+    assert(resultado(24))
 
-    // 125 no pertenece, porque 100 no esa en el conjunto
+    // 125 no pertenece, porque 100 no esta en el conjunto
     // de partida
     assert(!resultado(125))
-  }*/
+    assert(!resultado(35))
+
+
+  }
 
 }

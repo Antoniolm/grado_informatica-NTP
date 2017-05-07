@@ -53,12 +53,12 @@ object Conjunto{
     new Conjunto(f)
   }
 
-  def conjuntoUnElemento(elemto : Int) : Conjunto ={
-    Conjunto((x:Int) => x==x)
+  def conjuntoUnElemento(elemento : Int) : Conjunto ={
+    Conjunto((x:Int) => x==elemento)
   }
 
   def union(c1 : Conjunto, c2 : Conjunto) : Conjunto = {
-    Conjunto((x:Int) => c1.funcionCaracteristica(x) | c2.funcionCaracteristica(x))
+    Conjunto((x:Int) => c1.funcionCaracteristica(x) || c2.funcionCaracteristica(x))
   }
 
   def interseccion(c1 : Conjunto, c2 : Conjunto) : Conjunto = {
@@ -83,28 +83,24 @@ object Conjunto{
   }
 
   def existe(c : Conjunto, predicado : Int => Boolean) : Boolean ={
-    def iterar(elemento : Int) : Boolean = {
+    var result=false
+    for (i <- -Conjunto.LIMITE to Conjunto.LIMITE ) {
+      if (paraTodo(conjuntoUnElemento(i), (x:Int) => c.funcionCaracteristica(x) & predicado(x)))
+        result=true
+    }
+
+    result
+    /*def iterar(elemento : Int) : Boolean = {
       if( predicado(elemento) & c.funcionCaracteristica(elemento)) true
       else if (elemento==LIMITE) false
       else iterar(elemento+1)
     }
-    iterar(-LIMITE)
+    iterar(-LIMITE)*/
   }
 
   def map(c : Conjunto, funcion : Int => Int) : Conjunto = {
-    ???
+    Conjunto((x:Int) => existe(c,(y:Int) => funcion(y)==x))
   }
 
-
-}
-
-object EjemploUso extends App{
-  // Creamos conjunto para valores mayores que 3
-  val conjunto=Conjunto((x:Int) => x > 3)
-
-  // Se comprueba si 5 pertenece al conjunto
-  val pertenece=conjunto(5)
-  if(pertenece)
-    println("pertenece")
 
 }
