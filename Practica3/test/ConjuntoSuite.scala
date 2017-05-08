@@ -115,7 +115,7 @@ class ConjuntoSuite extends TestCase {
   }
 
   /**
-    * Test de forall
+    * Test de paraTodo
     */
   def testParaTodo() {
     val conjunto = Conjunto((x: Int) => x < 10)
@@ -150,10 +150,12 @@ class ConjuntoSuite extends TestCase {
     // Mapeo: sumar 25 a todos los elementos del conjunto
     val resultado = Conjunto.map(conjunto, (x => x + 25))
 
-    // 30 y 31 pertenecen al conjunto resultado, ya que
+    // 30 y31 pertenecen al conjunto resultado, ya que
     // 5 y 6 pertenecen al conjunto de partida
     assert(resultado(30))
     assert(resultado(31))
+
+    //Otros ejemplos que tambien estan en el conjunto
     assert(resultado(34))
     assert(resultado(25))
     assert(resultado(24))
@@ -161,6 +163,7 @@ class ConjuntoSuite extends TestCase {
     // 125 no pertenece, porque 100 no esta en el conjunto
     // de partida
     assert(!resultado(125))
+    //Los mismo pasa con 35 seria 10 y no esta en el conjunto
     assert(!resultado(35))
 
 
