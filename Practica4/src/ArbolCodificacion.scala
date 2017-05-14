@@ -53,10 +53,13 @@ class ArbolCodificacion(val cadena:String) {
 
 }
 
-object ArbolCodificacion extends App{
+object ArbolCodificacion {
   def apply(cadena:String ) = new ArbolCodificacion(cadena)
 
-  val arbol=new ArbolCodificacion("AAAAAAAABBBCDEFGH")
+}
+
+object Main extends App{
+  val arbol=ArbolCodificacion("AAAAAAAABBBCDEFGH")
   val prueba=arbol.generarArbol()
   println(prueba.toString)
 }
