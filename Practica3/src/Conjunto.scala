@@ -129,14 +129,7 @@ object Conjunto{
     * @return
     */
   def existe(c : Conjunto, predicado : Int => Boolean) : Boolean ={
-    var result=false
-
-    for (i <- -Conjunto.LIMITE to Conjunto.LIMITE ) {
-      if (paraTodo(conjuntoUnElemento(i), (x:Int) => c.funcionCaracteristica(x) & predicado(x)))
-        result=true
-    }
-
-    result
+    !paraTodo(c, !predicado(_))
   }
 
   /**
