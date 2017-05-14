@@ -21,9 +21,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2970">
               <caret line="136" column="0" lean-forward="false" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
-              <folding>
-                <element signature="e#70#101#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -31,8 +29,8 @@
       <file leaf-file-name="Conjunto.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Conjunto.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="616">
-              <caret line="31" column="5" lean-forward="true" selection-start-line="10" selection-start-column="1" selection-end-line="31" selection-end-column="5" />
+            <state relative-caret-position="308">
+              <caret line="20" column="3" lean-forward="true" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -567,9 +565,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2992">
           <caret line="136" column="0" lean-forward="false" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
-          <folding>
-            <element signature="e#70#101#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -585,9 +581,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2992">
           <caret line="136" column="0" lean-forward="false" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
-          <folding>
-            <element signature="e#70#101#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -603,9 +597,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3630">
           <caret line="165" column="61" lean-forward="false" selection-start-line="165" selection-start-column="61" selection-end-line="165" selection-end-column="61" />
-          <folding>
-            <element signature="e#70#101#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -621,9 +613,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="858">
           <caret line="39" column="36" lean-forward="false" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
-          <folding>
-            <element signature="e#70#101#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -639,9 +629,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#70#101#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -657,9 +645,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2750">
           <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
-          <folding>
-            <element signature="e#70#101#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -682,16 +668,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2970">
           <caret line="136" column="0" lean-forward="false" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
-          <folding>
-            <element signature="e#70#101#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Conjunto.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="616">
-          <caret line="31" column="5" lean-forward="true" selection-start-line="10" selection-start-column="1" selection-end-line="31" selection-end-column="5" />
+        <state relative-caret-position="308">
+          <caret line="20" column="3" lean-forward="true" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
           <folding />
         </state>
       </provider>
