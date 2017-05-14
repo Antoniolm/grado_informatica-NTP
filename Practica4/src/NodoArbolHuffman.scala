@@ -3,6 +3,8 @@
   */
 abstract class NodoArbolHuffman {
  def calcularPeso:Int
+ def obtenerCaracteres:List[String]
+
 }
 
 /////////////////////////////////////////////////
