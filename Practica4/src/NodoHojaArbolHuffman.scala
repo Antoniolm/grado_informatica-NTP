@@ -16,8 +16,8 @@ class NodoHojaArbolHuffman(val elemento:Char , val peso:Int) extends NodoArbolHu
     peso
   }
 
-  override def obtenerCaracteres:List[String] ={
-    List(elemento.toString)
+  override def obtenerCaracteres:List[Char] ={
+    List(elemento)
   }
 }
 

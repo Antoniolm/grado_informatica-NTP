@@ -5,7 +5,7 @@ abstract class NodoArbolHuffman {
   val peso:Int
   val tipo:String
  def calcularPeso:Int
- def obtenerCaracteres:List[String]
+ def obtenerCaracteres:List[Char]
 
 }
 
