@@ -2,7 +2,7 @@
   * Created by LENOVO on 14/05/2017.
   */
 abstract class NodoArbolHuffman {
-
+ def calcularPeso:Int
 }
 
 /////////////////////////////////////////////////
@@ -16,6 +16,10 @@ class NodoInternoArbolHuffman(val hijoDerecha:NodoArbolHuffman,val hijoIzquierda
   override def toString(): String = {
     val resultado= "[Nodo Interno] Elementos ->"+ elementos.toString()+", peso -> "+peso
     resultado
+  }
+
+  override def calcularPeso(): Int = {
+    hijoDerecha.calcularPeso+hijoIzquierda.calcularPeso
   }
 }
 
@@ -34,6 +38,10 @@ class NodoHojaArbolHuffman(val elemento:Char , val peso:Int) extends NodoArbolHu
   override def toString(): String = {
     val resultado= "[Nodo Hoja] Elemento ->"+ elemento+", peso -> "+peso
     resultado
+  }
+
+  override def calcularPeso(): Int = {
+    peso
   }
 }
 
