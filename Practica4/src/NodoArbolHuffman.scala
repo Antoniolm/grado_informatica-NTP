@@ -21,6 +21,10 @@ class NodoInternoArbolHuffman(val hijoDerecha:NodoArbolHuffman,val hijoIzquierda
   override def calcularPeso(): Int = {
     hijoDerecha.calcularPeso+hijoIzquierda.calcularPeso
   }
+
+  def obtenerCaracteres:List[String] ={
+    elementos
+  }
 }
 
 object NodoInternoArbolHuffman {
