@@ -2,9 +2,9 @@
   * Created by LENOVO on 14/05/2017.
   */
 class Decodificador(val raiz:NodoArbolHuffman,val cadena:List[Int]) {
-  def decodificar():Char = {
+  def decodificar():String = {
 
-    def decodLetra(raiz:NodoArbolHuffman, cadena:List[Int]):Char = {
+    /*def decodLetra(raiz:NodoArbolHuffman, cadena:List[Int]):Char = {
 
       if(raiz.tipo=="Hoja")raiz.obtenerCaracteres(0)
       else {
@@ -17,24 +17,27 @@ class Decodificador(val raiz:NodoArbolHuffman,val cadena:List[Int]) {
       }
 
     }
-    decodLetra(raiz,cadena)
+    decodLetra(raiz,cadena)*/
 
-    /*def auxiliar(raiz:NodoArbolHuffman, cadena:List[Int],resultado:String):String = {
+    def auxiliar(nodos:NodoArbolHuffman, cadena:List[Int],resultado:String):String = {
 
-      if(cadena.size==0) resultado
+      if(cadena.isEmpty) resultado
       else {
         val actual=cadena.head
-        if(raiz.tipo=="Hoja")
-          resultado=resultado ::: (raiz.obtenerCaracteres)(0)
+        if(nodos.tipo=="Hoja") {
+          auxiliar(raiz,cadena,resultado + nodos.obtenerCaracteres(0).toString)
+        }
         else {
-          if (actual == 0) auxiliar(raiz,cadena.tail,resultado)
-          else auxiliar(raiz,cadena.tail,resultado)
+          val nodoConv=nodos.asInstanceOf[NodoInternoArbolHuffman]
+
+          if (actual == 1) auxiliar(nodoConv.hijoIzquierda,cadena.tail,resultado)
+          else auxiliar(nodoConv.hijoDerecha,cadena.tail,resultado)
         }
       }
 
     }
     var auxString=""
-    auxiliar(raiz,cadena,new String);*/
+    auxiliar(raiz,cadena,new String)
   }
 }
 
