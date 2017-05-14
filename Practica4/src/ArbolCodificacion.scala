@@ -2,7 +2,6 @@
   * Created by LENOVO on 14/05/2017.
   */
 class ArbolCodificacion(val cadena:String) {
-  val raiz = Nil
 
   def calcularFrecuencia: List[(Char,Int)] ={
     var resultado:List[(Char, Int)] = List()
@@ -20,7 +19,7 @@ class ArbolCodificacion(val cadena:String) {
     }
 
     resultado=resultado.sortBy(_._2)
-    println(resultado(0).toString())
+    //println(resultado(0).toString())
     resultado
   }
 
@@ -32,7 +31,7 @@ class ArbolCodificacion(val cadena:String) {
       false
   }
 
-  def generarArbol()={
+  def generarArbol():NodoArbolHuffman ={
     val resultado=calcularFrecuencia
     var nodeList:List[NodoArbolHuffman] = List()
 
@@ -41,14 +40,14 @@ class ArbolCodificacion(val cadena:String) {
     }
 
     //while del metodo repetir
-    while(unNodo(nodeList)){
+    while(!unNodo(nodeList)){
       nodeList = nodeList ::: List(NodoInternoArbolHuffman(nodeList(0),nodeList(1),
                               nodeList(0).obtenerCaracteres:::nodeList(1).obtenerCaracteres,nodeList(0).calcularPeso+nodeList(1).calcularPeso))
       nodeList=nodeList.tail
       nodeList=nodeList.tail
       nodeList.sortBy(_.peso)
     }
-
+    nodeList.head
   }
 
 
@@ -58,5 +57,6 @@ object ArbolCodificacion extends App{
   def apply(cadena:String ) = new ArbolCodificacion(cadena)
 
   val arbol=new ArbolCodificacion("AAAAAAAABBBCDEFGH")
-  arbol.calcularFrecuencia
+  val prueba=arbol.generarArbol()
+  println(prueba.toString)
 }
