@@ -29,6 +29,10 @@ class Conversor(val raiz:NodoArbolHuffman) {
     auxiliar(raiz,cadena,new String)
   }
 
+
+
+
+
   def convertirArbolTabla(arbolCodificacion : NodoArbolHuffman) : TablaCodigo ={
       def auxiliar(nodo:NodoArbolHuffman,tabla:List[Int],resultado:TablaCodigo): TablaCodigo = {
         if(nodo.tipo=="Hoja"){
@@ -54,7 +58,7 @@ class Conversor(val raiz:NodoArbolHuffman) {
     return Nil
   }
 
-  def codificar(tabla:TablaCodigo,cadena:List[Char]): List[Int] ={
+  def codificaciónRapida(tabla:TablaCodigo,cadena:List[Char]): List[Int] ={
 
     def auxiliar(cad:List[Char],resultado:List[Int]): List[Int] = {
       if(cad.isEmpty) resultado
