@@ -44,6 +44,28 @@ class Conversor(val raiz:NodoArbolHuffman) {
       }
       auxiliar(arbolCodificacion,List(),List())
   }
+
+  def codificarConTabla(tabla : TablaCodigo)(caracter : Char) : List[Int] ={
+    for(elemento <- tabla){
+      if(elemento._1==caracter) {
+        return elemento._2
+      }
+    }
+    return Nil
+  }
+
+  def codificar(tabla:TablaCodigo,cadena:List[Char]): List[Int] ={
+
+    def auxiliar(cad:List[Char],resultado:List[Int]): List[Int] = {
+      if(cad.isEmpty) resultado
+      else {
+        val elemento=cad.head
+        auxiliar(cad.tail,resultado ::: codificarConTabla(tabla)(elemento))
+      }
+    }
+    auxiliar(cadena,List())
+  }
+
 }
 
 object Conversor{
