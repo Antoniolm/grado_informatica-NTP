@@ -60,7 +60,10 @@ class Conversor(val raiz:NodoArbolHuffman) {
       if(cad.isEmpty) resultado
       else {
         val elemento=cad.head
-        auxiliar(cad.tail,resultado ::: codificarConTabla(tabla)(elemento))
+        if(elemento!="")
+          auxiliar(cad.tail,resultado ::: codificarConTabla(tabla)(elemento))
+        else
+          auxiliar(cad.tail,resultado)
       }
     }
     auxiliar(cadena,List())

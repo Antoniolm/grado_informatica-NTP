@@ -162,5 +162,6 @@ object Main extends App{
   val conversor=Conversor(codigoHuffmanFrances)
   println(conversor.decodificar(mensajeSecretoFrances))
   //println(conversor.convertirArbolTabla(codigoHuffmanFrances).toString())
-  println(conversor.codificar(conversor.convertirArbolTabla(codigoHuffmanFrances),"huffmanestcool".toList).toString())
+  val resultadoCod=conversor.codificar(conversor.convertirArbolTabla(codigoHuffmanFrances),"huffman est cool".toList)
+  println(conversor.decodificar(resultadoCod))
 }
