@@ -7,6 +7,11 @@
 class Conversor(val raiz:NodoArbolHuffman) {
   type TablaCodigo=List[(Char, List[Int])]
 
+  /**
+    * Metodo que decodifica 
+    * @param cadena
+    * @return
+    */
   def decodificar(cadena:List[Int]):String = {
 
     def auxiliar(nodos:NodoArbolHuffman, cadena:List[Int],resultado:String):String = {

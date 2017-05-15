@@ -3,6 +3,11 @@
   */
 class ArbolCodificacion(val cadena:String) {
 
+  /**
+    * Metodo que nos permite calcular la frecuencia de uso de
+    * una cadena ordenada de elementos
+    * @return
+    */
   def calcularFrecuencia: List[(Char,Int)] ={
     var resultado:List[(Char, Int)] = List()
 
@@ -22,7 +27,12 @@ class ArbolCodificacion(val cadena:String) {
     resultado
   }
 
-  //Hacer singleton
+  /**
+    * Metodo que nos indica si una lista de nodos contiene
+    * solo un nodo
+    * @param nodos
+    * @return
+    */
   def unNodo(nodos:List[NodoArbolHuffman]) : Boolean ={
     if(nodos.length==1)
       true
@@ -30,6 +40,10 @@ class ArbolCodificacion(val cadena:String) {
       false
   }
 
+  /**
+    * Nos permite generar un arbol huffman a partir de una cadena de caracteres
+    * @return
+    */
   def generarArbol():NodoArbolHuffman ={
     val resultado=calcularFrecuencia
     var nodeList:List[NodoArbolHuffman] = List()
@@ -38,7 +52,6 @@ class ArbolCodificacion(val cadena:String) {
       nodeList = nodeList ::: List(NodoHojaArbolHuffman(elemento._1,elemento._2))
     }
 
-    //while del metodo repetir
     while(!unNodo(nodeList)){
       nodeList = nodeList ::: List(NodoInternoArbolHuffman(nodeList(0),nodeList(1),
                               nodeList(0).obtenerCaracteres:::nodeList(1).obtenerCaracteres,nodeList(0).calcularPeso+nodeList(1).calcularPeso))
@@ -54,5 +67,4 @@ class ArbolCodificacion(val cadena:String) {
 
 object ArbolCodificacion {
   def apply(cadena:String ) = new ArbolCodificacion(cadena)
-
 }

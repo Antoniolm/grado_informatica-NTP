@@ -15,10 +15,20 @@ class NodoInternoArbolHuffman(val hijoIzquierda:NodoArbolHuffman,val hijoDerecha
     resultado
   }
 
+  /**
+    * Calcula el peso de un nodo interno a traves de
+    * los pesos de sus nodos hijos
+    * @return
+  */
   override def calcularPeso(): Int = {
     hijoDerecha.calcularPeso+hijoIzquierda.calcularPeso
   }
 
+  /**
+    * obtener Caracteretes de un nodo interno a traves de
+    * los caracteres de sus nodos hijos
+    * @return
+    */
   override def obtenerCaracteres:List[Char] ={
     hijoIzquierda.obtenerCaracteres ::: hijoDerecha.obtenerCaracteres
   }

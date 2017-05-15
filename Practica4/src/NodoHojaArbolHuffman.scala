@@ -3,6 +3,7 @@
   */
 class NodoHojaArbolHuffman(val elemento:Char , val peso:Int) extends NodoArbolHuffman{
   val tipo="Hoja"
+
   /**
     * Crea una cadena con el contenido del Nodo hoja
     * @return
@@ -12,10 +13,18 @@ class NodoHojaArbolHuffman(val elemento:Char , val peso:Int) extends NodoArbolHu
     resultado
   }
 
+  /**
+    * Calcular el peso de nuestro nodo hoja
+    * @return
+    */
   override def calcularPeso(): Int = {
     peso
   }
 
+  /**
+    * Devuelve el caracter de nuestro nodo hoja
+    * @return
+    */
   override def obtenerCaracteres:List[Char] ={
     List(elemento)
   }
