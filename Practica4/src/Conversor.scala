@@ -1,11 +1,11 @@
 /**
   * Created by LENOVO on 14/05/2017.
   */
-type TablaCodigo=List[(Char, List[Int])]
+
 
 
 class Conversor(val raiz:NodoArbolHuffman) {
-
+  type TablaCodigo=List[(Char, List[Int])]
 
   def decodificar(cadena:List[Int]):String = {
 
@@ -26,11 +26,24 @@ class Conversor(val raiz:NodoArbolHuffman) {
       }
 
     }
-
     auxiliar(raiz,cadena,new String)
   }
 
+  def convertirArbolTabla(arbolCodificacion : NodoArbolHuffman) : TablaCodigo ={
+      def auxiliar(nodo:NodoArbolHuffman,tabla:List[Int],resultado:TablaCodigo): TablaCodigo = {
+        if(nodo.tipo=="Hoja"){
+          resultado ::: List((nodo.obtenerCaracteres(0),tabla))
+        }
+        else{
+          val nodoConv=nodo.asInstanceOf[NodoInternoArbolHuffman]
 
+          auxiliar(nodoConv.hijoIzquierda,tabla ::: List(0),resultado) :::
+            auxiliar(nodoConv.hijoDerecha,tabla ::: List(1),resultado)
+
+        }
+      }
+      auxiliar(arbolCodificacion,List(),List())
+  }
 }
 
 object Conversor{

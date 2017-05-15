@@ -149,4 +149,5 @@ object Main extends App{
 
   val conversor=Conversor(codigoHuffmanFrances)
   println(conversor.decodificar(mensajeSecretoFrances))
+  println(conversor.convertirArbolTabla(codigoHuffmanFrances).toString())
 }
