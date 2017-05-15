@@ -1,10 +1,13 @@
 /**
   * Created by LENOVO on 14/05/2017.
   */
-class Decodificador(val raiz:NodoArbolHuffman,val cadena:List[Int]) {
+type TablaCodigo=List[(Char, List[Int])]
 
 
-  def decodificar():String = {
+class Conversor(val raiz:NodoArbolHuffman) {
+
+
+  def decodificar(cadena:List[Int]):String = {
 
     def auxiliar(nodos:NodoArbolHuffman, cadena:List[Int],resultado:String):String = {
 
@@ -17,17 +20,19 @@ class Decodificador(val raiz:NodoArbolHuffman,val cadena:List[Int]) {
         else {
           val nodoConv=nodos.asInstanceOf[NodoInternoArbolHuffman]
 
-          if (actual == 1) auxiliar(nodoConv.hijoIzquierda,cadena.tail,resultado)
+          if (actual == 0) auxiliar(nodoConv.hijoIzquierda,cadena.tail,resultado)
           else auxiliar(nodoConv.hijoDerecha,cadena.tail,resultado)
         }
       }
 
     }
-    var auxString=""
+
     auxiliar(raiz,cadena,new String)
   }
+
+
 }
 
-object Decodificador{
-  def apply(raiz:NodoArbolHuffman,cadena:List[Int]) = new Decodificador(raiz,cadena)
+object Conversor{
+  def apply(raiz:NodoArbolHuffman) = new Conversor(raiz)
 }

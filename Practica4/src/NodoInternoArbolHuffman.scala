@@ -1,7 +1,7 @@
 /**
   * Created by LENOVO on 14/05/2017.
   */
-class NodoInternoArbolHuffman(val hijoDerecha:NodoArbolHuffman,val hijoIzquierda:NodoArbolHuffman,
+class NodoInternoArbolHuffman(val hijoIzquierda:NodoArbolHuffman,val hijoDerecha:NodoArbolHuffman,
                               val elementos:List[Char] , val peso:Int) extends NodoArbolHuffman{
 
   val tipo="Interno"
@@ -11,7 +11,7 @@ class NodoInternoArbolHuffman(val hijoDerecha:NodoArbolHuffman,val hijoIzquierda
     */
   override def toString(): String = {
     val resultado= "[Nodo Interno]("+ elementos.toString()+","+peso+") ->\n{"+
-      hijoDerecha.toString+ ":::"+hijoIzquierda.toString+"}"
+      hijoIzquierda.toString+ ":::"+hijoDerecha.toString+"}"
     resultado
   }
 
@@ -20,12 +20,11 @@ class NodoInternoArbolHuffman(val hijoDerecha:NodoArbolHuffman,val hijoIzquierda
   }
 
   override def obtenerCaracteres:List[Char] ={
-    hijoDerecha.obtenerCaracteres ::: hijoIzquierda.obtenerCaracteres
+    hijoIzquierda.obtenerCaracteres ::: hijoDerecha.obtenerCaracteres
   }
 }
 
-
 object NodoInternoArbolHuffman {
-  def apply(hD:NodoArbolHuffman,hI:NodoArbolHuffman,
-            ele:List[Char] , p:Int)= new NodoInternoArbolHuffman(hD,hI,ele,p)
+  def apply(hI:NodoArbolHuffman,hD:NodoArbolHuffman,
+            ele:List[Char] , p:Int)= new NodoInternoArbolHuffman(hI,hD,ele,p)
 }

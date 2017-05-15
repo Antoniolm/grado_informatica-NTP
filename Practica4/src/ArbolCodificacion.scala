@@ -147,6 +147,6 @@ object Main extends App{
     0, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1,
     0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1)
 
-  val decodificador=Decodificador(codigoHuffmanFrances,mensajeSecretoFrances)
-  println(decodificador.decodificar())
+  val conversor=Conversor(codigoHuffmanFrances)
+  println(conversor.decodificar(mensajeSecretoFrances))
 }
