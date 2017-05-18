@@ -22,7 +22,7 @@ class ArbolCodificacion(val cadena:String) {
         }
       cont+=1
     }
-
+    resultado = resultado ::: List((lastChar, cont))
     resultado=resultado.sortBy(_._2)
     resultado
   }
@@ -51,13 +51,13 @@ class ArbolCodificacion(val cadena:String) {
     for(elemento <- resultado){
       nodeList = nodeList ::: List(NodoHojaArbolHuffman(elemento._1,elemento._2))
     }
-
+    
     while(!unNodo(nodeList)){
       nodeList = nodeList ::: List(NodoInternoArbolHuffman(nodeList(0),nodeList(1),
                               nodeList(0).obtenerCaracteres:::nodeList(1).obtenerCaracteres,nodeList(0).calcularPeso+nodeList(1).calcularPeso))
       nodeList=nodeList.tail
       nodeList=nodeList.tail
-      nodeList.sortBy(_.peso)
+      nodeList=nodeList.sortBy(_.peso)
     }
     nodeList.head
   }

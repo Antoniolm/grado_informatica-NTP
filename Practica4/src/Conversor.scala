@@ -8,7 +8,7 @@ class Conversor(val raiz:NodoArbolHuffman) {
   type TablaCodigo=List[(Char, List[Int])]
 
   /**
-    * Metodo que decodifica 
+    * Metodo que decodifica una cadena
     * @param cadena
     * @return
     */
@@ -35,9 +35,12 @@ class Conversor(val raiz:NodoArbolHuffman) {
   }
 
 
-
-
-
+  /**
+    * Convierte el arbol de huffman en
+    * una tabla de codigos ( List[(Char, List[Int] )
+    * @param arbolCodificacion
+    * @return
+    */
   def convertirArbolTabla(arbolCodificacion : NodoArbolHuffman) : TablaCodigo ={
       def auxiliar(nodo:NodoArbolHuffman,tabla:List[Int],resultado:TablaCodigo): TablaCodigo = {
         if(nodo.tipo=="Hoja"){
@@ -54,6 +57,12 @@ class Conversor(val raiz:NodoArbolHuffman) {
       auxiliar(arbolCodificacion,List(),List())
   }
 
+  /**
+    * Metodo que me devuelve la ruta (01101) de un caracter
+    * @param tabla
+    * @param caracter
+    * @return
+    */
   def codificarConTabla(tabla : TablaCodigo)(caracter : Char) : List[Int] ={
     for(elemento <- tabla){
       if(elemento._1==caracter) {
@@ -63,13 +72,19 @@ class Conversor(val raiz:NodoArbolHuffman) {
     return Nil
   }
 
+  /**
+    * Codificación Rapida utilizando la tabla de codigos
+    * @param tabla
+    * @param cadena
+    * @return
+    */
   def codificaciónRapida(tabla:TablaCodigo,cadena:List[Char]): List[Int] ={
 
     def auxiliar(cad:List[Char],resultado:List[Int]): List[Int] = {
       if(cad.isEmpty) resultado
       else {
         val elemento=cad.head
-        if(elemento!="")
+        if(elemento!=' ')
           auxiliar(cad.tail,resultado ::: codificarConTabla(tabla)(elemento))
         else
           auxiliar(cad.tail,resultado)
