@@ -10,8 +10,8 @@ class NodoInternoArbolHuffman(val hijoIzquierda:NodoArbolHuffman,val hijoDerecha
     * @return
     */
   override def toString(): String = {
-    val resultado= "[Nodo Interno]("+ elementos.toString()+","+peso+") ->\n{"+
-      hijoIzquierda.toString+ ":::"+hijoDerecha.toString+"}"
+    val resultado= "[Nodo Interno]("+ elementos.toString()+","+peso/*+") ->\n{"+
+      hijoIzquierda.toString+ ":::"+hijoDerecha.toString+"}"*/
     resultado
   }
 

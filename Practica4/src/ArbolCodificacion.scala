@@ -9,22 +9,18 @@ class ArbolCodificacion(val cadena:String) {
     * @return
     */
   def calcularFrecuencia: List[(Char,Int)] ={
-    var resultado:List[(Char, Int)] = List()
+    //var resultado:List[(Char, Int)] = List()
+    var resultado= scala.collection.mutable.Map[Char, Int]()
 
-    var lastChar:Char = cadena(0)
-    var cont:Int = 0
-
-    for (elemento <- cadena){
-        if(lastChar!=elemento) {
-          resultado = resultado ::: List((lastChar, cont))
-          lastChar = elemento
-          cont = 0
-        }
-      cont+=1
+    for(elemento <- cadena){
+          if (resultado.contains(elemento)) {
+            resultado(elemento) = resultado(elemento) + 1
+          }
+          else {
+            resultado(elemento) = 1
+          }
     }
-    resultado = resultado ::: List((lastChar, cont))
-    resultado=resultado.sortBy(_._2)
-    resultado
+    resultado.toList.sortBy(_._2)
   }
 
   /**
@@ -51,13 +47,15 @@ class ArbolCodificacion(val cadena:String) {
     for(elemento <- resultado){
       nodeList = nodeList ::: List(NodoHojaArbolHuffman(elemento._1,elemento._2))
     }
-    
+
+    println(nodeList.toString())
     while(!unNodo(nodeList)){
       nodeList = nodeList ::: List(NodoInternoArbolHuffman(nodeList(0),nodeList(1),
                               nodeList(0).obtenerCaracteres:::nodeList(1).obtenerCaracteres,nodeList(0).calcularPeso+nodeList(1).calcularPeso))
       nodeList=nodeList.tail
       nodeList=nodeList.tail
-      nodeList=nodeList.sortBy(_.peso)
+      nodeList=nodeList.sortWith(_.peso <= _.peso)
+      println(nodeList.toString())
     }
     nodeList.head
   }
