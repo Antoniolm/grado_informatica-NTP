@@ -114,7 +114,7 @@ class TestPractica4 extends TestCase{
     * Test para español
     */
   def testEspañol{
-    /*val arbolRegenta=ArbolCodificacion(leerArchivo("data/regenta.txt"))
+    val arbolRegenta=ArbolCodificacion(leerArchivo("data/regenta.txt"))
     val resultado=arbolRegenta.generarArbol()
     val mensajeSecretoEsp = List(0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1,
       0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0,
@@ -124,8 +124,9 @@ class TestPractica4 extends TestCase{
       0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1,
       1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1)
     val conversor=Conversor(resultado)
-    val resultadoCod=conversor.codificaciónRapida(conversor.convertirArbolTabla(resultado),"La regenta de Benito Perez Galdos".toList)
-    assertEquals(conversor.decodificar(resultadoCod),"La regenta de Benito Perez Galdos")*/
+    //val resultadoCod=conversor.codificaciónRapida(conversor.convertirArbolTabla(resultado),"La regenta de Benito Perez Galdos".toList)
+    val resultadoCod=conversor.codificación(resultado,"La regenta de Benito Perez Galdos".toList)
+    assertEquals(conversor.decodificar(resultadoCod),"La regenta de Benito Perez Galdos")
   }
 
 
@@ -134,12 +135,13 @@ class TestPractica4 extends TestCase{
     */
   def testCodificar{
     val conversor=Conversor(codigoHuffmanFrances)
-    val resultadoCod=conversor.codificaciónRapida(conversor.convertirArbolTabla(codigoHuffmanFrances),"huffman est cool".toList)
-    //val resultadoCod=conversor.codificación(codigoHuffmanFrances,"huffmanestcool".toList)
+    //val resultadoCod=conversor.codificaciónRapida(conversor.convertirArbolTabla(codigoHuffmanFrances),"huffman est cool".toList)
+    val resultadoCod=conversor.codificación(codigoHuffmanFrances,"huffmanestcool".toList)
+    println(resultadoCod)
     assertEquals(resultadoCod,List(0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0,
       0, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1,
       0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1))
-    
+
     //println(conversor.decodificar(resultadoCod))
   }
 

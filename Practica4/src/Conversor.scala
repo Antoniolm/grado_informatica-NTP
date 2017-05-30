@@ -107,16 +107,19 @@ class Conversor(val raiz:NodoArbolHuffman) {
 
     def auxiliar(nodos: NodoArbolHuffman, cadena: List[Char], resultado: List[Int], currentCod: List[Int]): List[Int] = {
 
-      if (cadena.isEmpty || (nodos.tipo == "Hoja" && nodos.obtenerCaracteres(0) != cadena.head)) resultado
+      if (cadena.isEmpty) resultado
       else {
         val actual = cadena.head
-        if (nodos.tipo == "Hoja" && nodos.obtenerCaracteres(0) == actual) {
-          auxiliar(raiz, cadena.tail, resultado ::: currentCod, List())
+        if (nodos.tipo == "Hoja") {
+          if(nodos.obtenerCaracteres(0) == actual)
+            auxiliar(raiz, cadena.tail, resultado ::: currentCod, List())
+          else
+            List()
         }
         else {
           val nodoConv = nodos.asInstanceOf[NodoInternoArbolHuffman]
 
-          auxiliar(nodoConv.hijoIzquierda, cadena, resultado, currentCod ::: List(0)):::
+          auxiliar(nodoConv.hijoIzquierda, cadena, resultado, currentCod ::: List(0)) :::
           auxiliar(nodoConv.hijoDerecha, cadena, resultado, currentCod ::: List(1))
         }
       }

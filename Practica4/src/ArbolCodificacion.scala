@@ -9,7 +9,6 @@ class ArbolCodificacion(val cadena:String) {
     * @return
     */
   def calcularFrecuencia: List[(Char,Int)] ={
-    //var resultado:List[(Char, Int)] = List()
     var resultado= scala.collection.mutable.Map[Char, Int]()
 
     for(elemento <- cadena){
@@ -20,7 +19,8 @@ class ArbolCodificacion(val cadena:String) {
             resultado(elemento) = 1
           }
     }
-    resultado.toList.sortBy(_._2)
+    var resultado2  =scala.collection.immutable.TreeMap(resultado.toArray:_*)
+    resultado2.toList.sortWith(_._2 < _._2)
   }
 
   /**
@@ -54,7 +54,7 @@ class ArbolCodificacion(val cadena:String) {
                               nodeList(0).obtenerCaracteres:::nodeList(1).obtenerCaracteres,nodeList(0).calcularPeso+nodeList(1).calcularPeso))
       nodeList=nodeList.tail
       nodeList=nodeList.tail
-      nodeList=nodeList.sortWith(_.peso <= _.peso)
+      nodeList=nodeList.sortWith(_.peso < _.peso)
       println(nodeList.toString())
     }
     nodeList.head
